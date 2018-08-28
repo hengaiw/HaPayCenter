@@ -1,0 +1,5 @@
+server:
+  port: 7010
+ 
+logging:
+  file: ./logs/HaAdmin.log

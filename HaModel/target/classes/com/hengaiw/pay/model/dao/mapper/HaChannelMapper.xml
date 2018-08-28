@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hengaiw.pay.model.dao.mapper.HaChannelMapper">
+  <resultMap id="BaseResultMap" type="com.hengaiw.pay.model.dao.model.HaChannel">
+    <id column="channel_id" jdbcType="INTEGER" property="channel_id" />
+    <result column="channel_name" jdbcType="VARCHAR" property="channel_name" />
+    <result column="channel_mchid" jdbcType="VARCHAR" property="channel_mchid" />
+    <result column="channel_status" jdbcType="BIT" property="channel_status" />
+    <result column="channel_url" jdbcType="VARCHAR" property="channel_url" />
+    <result column="channel_day_limit" jdbcType="BIGINT" property="channel_day_limit" />
+    <result column="channel_day_use" jdbcType="BIGINT" property="channel_day_use" />
+    <result column="channel_order_limit" jdbcType="BIGINT" property="channel_order_limit" />
+    <result column="channel_cash" jdbcType="INTEGER" property="channel_cash" />
+    <result column="channel_sign" jdbcType="VARCHAR" property="channel_sign" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hengaiw.pay.model.dao.model.HaChannel">
+    <result column="channel_param" jdbcType="LONGVARCHAR" property="channel_param" />
+    <result column="channel_pub_key" jdbcType="LONGVARCHAR" property="channel_pub_key" />
+    <result column="channel_pri_key" jdbcType="LONGVARCHAR" property="channel_pri_key" />
+    <result column="channel_md5" jdbcType="LONGVARCHAR" property="channel_md5" />
+    <result column="channel_res" jdbcType="LONGVARCHAR" property="channel_res" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    channel_id, channel_name, channel_mchid, channel_status, channel_url, channel_day_limit, 
+    channel_day_use, channel_order_limit, channel_cash, channel_sign, create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    channel_param, channel_pub_key, channel_pri_key, channel_md5, channel_res
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.hengaiw.pay.model.dao.model.HaChannelExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ha_channel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.hengaiw.pay.model.dao.model.HaChannelExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ha_channel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ha_channel
+    where channel_id = #{channel_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ha_channel
+    where channel_id = #{channel_id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hengaiw.pay.model.dao.model.HaChannelExample">
+    delete from ha_channel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hengaiw.pay.model.dao.model.HaChannel">
+    <selectKey keyProperty="channel_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ha_channel (channel_name, channel_mchid, channel_status, 
+      channel_url, channel_day_limit, channel_day_use, 
+      channel_order_limit, channel_cash, channel_sign, 
+      create_time, channel_param, channel_pub_key, 
+      channel_pri_key, channel_md5, channel_res
+      )
+    values (#{channel_name,jdbcType=VARCHAR}, #{channel_mchid,jdbcType=VARCHAR}, #{channel_status,jdbcType=BIT}, 
+      #{channel_url,jdbcType=VARCHAR}, #{channel_day_limit,jdbcType=BIGINT}, #{channel_day_use,jdbcType=BIGINT}, 
+      #{channel_order_limit,jdbcType=BIGINT}, #{channel_cash,jdbcType=INTEGER}, #{channel_sign,jdbcType=VARCHAR}, 
+      #{create_time,jdbcType=TIMESTAMP}, #{channel_param,jdbcType=LONGVARCHAR}, #{channel_pub_key,jdbcType=LONGVARCHAR}, 
+      #{channel_pri_key,jdbcType=LONGVARCHAR}, #{channel_md5,jdbcType=LONGVARCHAR}, #{channel_res,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hengaiw.pay.model.dao.model.HaChannel">
+    <selectKey keyProperty="channel_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ha_channel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="channel_name != null">
+        channel_name,
+      </if>
+      <if test="channel_mchid != null">
+        channel_mchid,
+      </if>
+      <if test="channel_status != null">
+        channel_status,
+      </if>
+      <if test="channel_url != null">
+        channel_url,
+      </if>
+      <if test="channel_day_limit != null">
+        channel_day_limit,
+      </if>
+      <if test="channel_day_use != null">
+        channel_day_use,
+      </if>
+      <if test="channel_order_limit != null">
+        channel_order_limit,
+      </if>
+      <if test="channel_cash != null">
+        channel_cash,
+      </if>
+      <if test="channel_sign != null">
+        channel_sign,
+      </if>
+      <if test="create_time != null">
+        create_time,
+      </if>
+      <if test="channel_param != null">
+        channel_param,
+      </if>
+      <if test="channel_pub_key != null">
+        channel_pub_key,
+      </if>
+      <if test="channel_pri_key != null">
+        channel_pri_key,
+      </if>
+      <if test="channel_md5 != null">
+        channel_md5,
+      </if>
+      <if test="channel_res != null">
+        channel_res,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="channel_name != null">
+        #{channel_name,jdbcType=VARCHAR},
+      </if>
+      <if test="channel_mchid != null">
+        #{channel_mchid,jdbcType=VARCHAR},
+      </if>
+      <if test="channel_status != null">
+        #{channel_status,jdbcType=BIT},
+      </if>
+      <if test="channel_url != null">
+        #{channel_url,jdbcType=VARCHAR},
+      </if>
+      <if test="channel_day_limit != null">
+        #{channel_day_limit,jdbcType=BIGINT},
+      </if>
+      <if test="channel_day_use != null">
+        #{channel_day_use,jdbcType=BIGINT},
+      </if>
+      <if test="channel_order_limit != null">
+        #{channel_order_limit,jdbcType=BIGINT},
+      </if>
+      <if test="channel_cash != null">
+        #{channel_cash,jdbcType=INTEGER},
+      </if>
+      <if test="channel_sign != null">
+        #{channel_sign,jdbcType=VARCHAR},
+      </if>
+      <if test="create_time != null">
+        #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channel_param != null">
+        #{channel_param,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="channel_pub_key != null">
+        #{channel_pub_key,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="channel_pri_key != null">
+        #{channel_pri_key,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="channel_md5 != null">
+        #{channel_md5,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="channel_res != null">
+        #{channel_res,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hengaiw.pay.model.dao.model.HaChannelExample" resultType="java.lang.Long">
+    select count(*) from ha_channel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ha_channel
+    <set>
+      <if test="record.channel_id != null">
+        channel_id = #{record.channel_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.channel_name != null">
+        channel_name = #{record.channel_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.channel_mchid != null">
+        channel_mchid = #{record.channel_mchid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.channel_status != null">
+        channel_status = #{record.channel_status,jdbcType=BIT},
+      </if>
+      <if test="record.channel_url != null">
+        channel_url = #{record.channel_url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.channel_day_limit != null">
+        channel_day_limit = #{record.channel_day_limit,jdbcType=BIGINT},
+      </if>
+      <if test="record.channel_day_use != null">
+        channel_day_use = #{record.channel_day_use,jdbcType=BIGINT},
+      </if>
+      <if test="record.channel_order_limit != null">
+        channel_order_limit = #{record.channel_order_limit,jdbcType=BIGINT},
+      </if>
+      <if test="record.channel_cash != null">
+        channel_cash = #{record.channel_cash,jdbcType=INTEGER},
+      </if>
+      <if test="record.channel_sign != null">
+        channel_sign = #{record.channel_sign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.create_time != null">
+        create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.channel_param != null">
+        channel_param = #{record.channel_param,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.channel_pub_key != null">
+        channel_pub_key = #{record.channel_pub_key,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.channel_pri_key != null">
+        channel_pri_key = #{record.channel_pri_key,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.channel_md5 != null">
+        channel_md5 = #{record.channel_md5,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.channel_res != null">
+        channel_res = #{record.channel_res,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update ha_channel
+    set channel_id = #{record.channel_id,jdbcType=INTEGER},
+      channel_name = #{record.channel_name,jdbcType=VARCHAR},
+      channel_mchid = #{record.channel_mchid,jdbcType=VARCHAR},
+      channel_status = #{record.channel_status,jdbcType=BIT},
+      channel_url = #{record.channel_url,jdbcType=VARCHAR},
+      channel_day_limit = #{record.channel_day_limit,jdbcType=BIGINT},
+      channel_day_use = #{record.channel_day_use,jdbcType=BIGINT},
+      channel_order_limit = #{record.channel_order_limit,jdbcType=BIGINT},
+      channel_cash = #{record.channel_cash,jdbcType=INTEGER},
+      channel_sign = #{record.channel_sign,jdbcType=VARCHAR},
+      create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      channel_param = #{record.channel_param,jdbcType=LONGVARCHAR},
+      channel_pub_key = #{record.channel_pub_key,jdbcType=LONGVARCHAR},
+      channel_pri_key = #{record.channel_pri_key,jdbcType=LONGVARCHAR},
+      channel_md5 = #{record.channel_md5,jdbcType=LONGVARCHAR},
+      channel_res = #{record.channel_res,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ha_channel
+    set channel_id = #{record.channel_id,jdbcType=INTEGER},
+      channel_name = #{record.channel_name,jdbcType=VARCHAR},
+      channel_mchid = #{record.channel_mchid,jdbcType=VARCHAR},
+      channel_status = #{record.channel_status,jdbcType=BIT},
+      channel_url = #{record.channel_url,jdbcType=VARCHAR},
+      channel_day_limit = #{record.channel_day_limit,jdbcType=BIGINT},
+      channel_day_use = #{record.channel_day_use,jdbcType=BIGINT},
+      channel_order_limit = #{record.channel_order_limit,jdbcType=BIGINT},
+      channel_cash = #{record.channel_cash,jdbcType=INTEGER},
+      channel_sign = #{record.channel_sign,jdbcType=VARCHAR},
+      create_time = #{record.create_time,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hengaiw.pay.model.dao.model.HaChannel">
+    update ha_channel
+    <set>
+      <if test="channel_name != null">
+        channel_name = #{channel_name,jdbcType=VARCHAR},
+      </if>
+      <if test="channel_mchid != null">
+        channel_mchid = #{channel_mchid,jdbcType=VARCHAR},
+      </if>
+      <if test="channel_status != null">
+        channel_status = #{channel_status,jdbcType=BIT},
+      </if>
+      <if test="channel_url != null">
+        channel_url = #{channel_url,jdbcType=VARCHAR},
+      </if>
+      <if test="channel_day_limit != null">
+        channel_day_limit = #{channel_day_limit,jdbcType=BIGINT},
+      </if>
+      <if test="channel_day_use != null">
+        channel_day_use = #{channel_day_use,jdbcType=BIGINT},
+      </if>
+      <if test="channel_order_limit != null">
+        channel_order_limit = #{channel_order_limit,jdbcType=BIGINT},
+      </if>
+      <if test="channel_cash != null">
+        channel_cash = #{channel_cash,jdbcType=INTEGER},
+      </if>
+      <if test="channel_sign != null">
+        channel_sign = #{channel_sign,jdbcType=VARCHAR},
+      </if>
+      <if test="create_time != null">
+        create_time = #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="channel_param != null">
+        channel_param = #{channel_param,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="channel_pub_key != null">
+        channel_pub_key = #{channel_pub_key,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="channel_pri_key != null">
+        channel_pri_key = #{channel_pri_key,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="channel_md5 != null">
+        channel_md5 = #{channel_md5,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="channel_res != null">
+        channel_res = #{channel_res,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where channel_id = #{channel_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hengaiw.pay.model.dao.model.HaChannel">
+    update ha_channel
+    set channel_name = #{channel_name,jdbcType=VARCHAR},
+      channel_mchid = #{channel_mchid,jdbcType=VARCHAR},
+      channel_status = #{channel_status,jdbcType=BIT},
+      channel_url = #{channel_url,jdbcType=VARCHAR},
+      channel_day_limit = #{channel_day_limit,jdbcType=BIGINT},
+      channel_day_use = #{channel_day_use,jdbcType=BIGINT},
+      channel_order_limit = #{channel_order_limit,jdbcType=BIGINT},
+      channel_cash = #{channel_cash,jdbcType=INTEGER},
+      channel_sign = #{channel_sign,jdbcType=VARCHAR},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      channel_param = #{channel_param,jdbcType=LONGVARCHAR},
+      channel_pub_key = #{channel_pub_key,jdbcType=LONGVARCHAR},
+      channel_pri_key = #{channel_pri_key,jdbcType=LONGVARCHAR},
+      channel_md5 = #{channel_md5,jdbcType=LONGVARCHAR},
+      channel_res = #{channel_res,jdbcType=LONGVARCHAR}
+    where channel_id = #{channel_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hengaiw.pay.model.dao.model.HaChannel">
+    update ha_channel
+    set channel_name = #{channel_name,jdbcType=VARCHAR},
+      channel_mchid = #{channel_mchid,jdbcType=VARCHAR},
+      channel_status = #{channel_status,jdbcType=BIT},
+      channel_url = #{channel_url,jdbcType=VARCHAR},
+      channel_day_limit = #{channel_day_limit,jdbcType=BIGINT},
+      channel_day_use = #{channel_day_use,jdbcType=BIGINT},
+      channel_order_limit = #{channel_order_limit,jdbcType=BIGINT},
+      channel_cash = #{channel_cash,jdbcType=INTEGER},
+      channel_sign = #{channel_sign,jdbcType=VARCHAR},
+      create_time = #{create_time,jdbcType=TIMESTAMP}
+    where channel_id = #{channel_id,jdbcType=INTEGER}
+  </update>
+</mapper>

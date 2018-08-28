@@ -1,0 +1,26 @@
+server:
+  port: 7001
+
+spring:
+  application:
+    name: HaConfig
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: file:./config/center
+  profiles:
+     active: native
+
+security:
+  user:
+    password: hengaiw
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:7000/eureka/
+
+logging:
+  file: ./logs/HaConfig.log
+

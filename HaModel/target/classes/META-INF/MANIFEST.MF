@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: HaModel
+Implementation-Version: 1.0.0
+Built-By: jianhuizhang
+Implementation-Vendor-Id: com.hengaiw
+Build-Jdk: 1.8.0_121
+Implementation-URL: http://projects.spring.io/spring-boot/HaModel/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+

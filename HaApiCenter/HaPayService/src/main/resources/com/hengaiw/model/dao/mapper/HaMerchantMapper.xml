@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hengaiw.model.dao.mapper.HaMerchantMapper">
+  <resultMap id="BaseResultMap" type="com.hengaiw.model.dao.model.HaMerchant">
+    <id column="merchant_id" jdbcType="INTEGER" property="merchant_id" />
+    <result column="agent_id" jdbcType="INTEGER" property="agent_id" />
+    <result column="merchant_name" jdbcType="VARCHAR" property="merchant_name" />
+    <result column="merchant_nickname" jdbcType="VARCHAR" property="merchant_nickname" />
+    <result column="merchant_business_no" jdbcType="VARCHAR" property="merchant_business_no" />
+    <result column="merchant_business_date" jdbcType="VARCHAR" property="merchant_business_date" />
+    <result column="merchant_email" jdbcType="VARCHAR" property="merchant_email" />
+    <result column="merchant_user_no" jdbcType="VARCHAR" property="merchant_user_no" />
+    <result column="merchant_user_name" jdbcType="VARCHAR" property="merchant_user_name" />
+    <result column="merchant_user_phone" jdbcType="VARCHAR" property="merchant_user_phone" />
+    <result column="merchant_address" jdbcType="VARCHAR" property="merchant_address" />
+    <result column="merchant_site" jdbcType="VARCHAR" property="merchant_site" />
+    <result column="merchant_icp" jdbcType="VARCHAR" property="merchant_icp" />
+    <result column="merchant_bank_account_name" jdbcType="VARCHAR" property="merchant_bank_account_name" />
+    <result column="merchant_bank_account" jdbcType="VARCHAR" property="merchant_bank_account" />
+    <result column="merchant_bank_name" jdbcType="VARCHAR" property="merchant_bank_name" />
+    <result column="merchant_bank_phone" jdbcType="VARCHAR" property="merchant_bank_phone" />
+    <result column="merchant_status" jdbcType="BIT" property="merchant_status" />
+    <result column="merchant_no" jdbcType="VARCHAR" property="merchant_no" />
+    <result column="merchant_req_key" jdbcType="VARCHAR" property="merchant_req_key" />
+    <result column="merchant_res_key" jdbcType="VARCHAR" property="merchant_res_key" />
+    <result column="merchant_total_cash" jdbcType="BIGINT" property="merchant_total_cash" />
+    <result column="merchant_wait_cash" jdbcType="BIGINT" property="merchant_wait_cash" />
+    <result column="merchant_withdraw_cash" jdbcType="BIGINT" property="merchant_withdraw_cash" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hengaiw.model.dao.model.HaMerchant">
+    <result column="merchant_res" jdbcType="LONGVARCHAR" property="merchant_res" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    merchant_id, agent_id, merchant_name, merchant_nickname, merchant_business_no, merchant_business_date, 
+    merchant_email, merchant_user_no, merchant_user_name, merchant_user_phone, merchant_address, 
+    merchant_site, merchant_icp, merchant_bank_account_name, merchant_bank_account, merchant_bank_name, 
+    merchant_bank_phone, merchant_status, merchant_no, merchant_req_key, merchant_res_key, 
+    merchant_total_cash, merchant_wait_cash, merchant_withdraw_cash, create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    merchant_res
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.hengaiw.model.dao.model.HaMerchantExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ha_merchant
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.hengaiw.model.dao.model.HaMerchantExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ha_merchant
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ha_merchant
+    where merchant_id = #{merchant_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ha_merchant
+    where merchant_id = #{merchant_id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hengaiw.model.dao.model.HaMerchantExample">
+    delete from ha_merchant
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hengaiw.model.dao.model.HaMerchant">
+    insert into ha_merchant (merchant_id, agent_id, merchant_name, 
+      merchant_nickname, merchant_business_no, 
+      merchant_business_date, merchant_email, 
+      merchant_user_no, merchant_user_name, merchant_user_phone, 
+      merchant_address, merchant_site, merchant_icp, 
+      merchant_bank_account_name, merchant_bank_account, 
+      merchant_bank_name, merchant_bank_phone, 
+      merchant_status, merchant_no, merchant_req_key, 
+      merchant_res_key, merchant_total_cash, merchant_wait_cash, 
+      merchant_withdraw_cash, create_time, merchant_res
+      )
+    values (#{merchant_id,jdbcType=INTEGER}, #{agent_id,jdbcType=INTEGER}, #{merchant_name,jdbcType=VARCHAR}, 
+      #{merchant_nickname,jdbcType=VARCHAR}, #{merchant_business_no,jdbcType=VARCHAR}, 
+      #{merchant_business_date,jdbcType=VARCHAR}, #{merchant_email,jdbcType=VARCHAR}, 
+      #{merchant_user_no,jdbcType=VARCHAR}, #{merchant_user_name,jdbcType=VARCHAR}, #{merchant_user_phone,jdbcType=VARCHAR}, 
+      #{merchant_address,jdbcType=VARCHAR}, #{merchant_site,jdbcType=VARCHAR}, #{merchant_icp,jdbcType=VARCHAR}, 
+      #{merchant_bank_account_name,jdbcType=VARCHAR}, #{merchant_bank_account,jdbcType=VARCHAR}, 
+      #{merchant_bank_name,jdbcType=VARCHAR}, #{merchant_bank_phone,jdbcType=VARCHAR}, 
+      #{merchant_status,jdbcType=BIT}, #{merchant_no,jdbcType=VARCHAR}, #{merchant_req_key,jdbcType=VARCHAR}, 
+      #{merchant_res_key,jdbcType=VARCHAR}, #{merchant_total_cash,jdbcType=BIGINT}, #{merchant_wait_cash,jdbcType=BIGINT}, 
+      #{merchant_withdraw_cash,jdbcType=BIGINT}, #{create_time,jdbcType=TIMESTAMP}, #{merchant_res,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hengaiw.model.dao.model.HaMerchant">
+    insert into ha_merchant
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="merchant_id != null">
+        merchant_id,
+      </if>
+      <if test="agent_id != null">
+        agent_id,
+      </if>
+      <if test="merchant_name != null">
+        merchant_name,
+      </if>
+      <if test="merchant_nickname != null">
+        merchant_nickname,
+      </if>
+      <if test="merchant_business_no != null">
+        merchant_business_no,
+      </if>
+      <if test="merchant_business_date != null">
+        merchant_business_date,
+      </if>
+      <if test="merchant_email != null">
+        merchant_email,
+      </if>
+      <if test="merchant_user_no != null">
+        merchant_user_no,
+      </if>
+      <if test="merchant_user_name != null">
+        merchant_user_name,
+      </if>
+      <if test="merchant_user_phone != null">
+        merchant_user_phone,
+      </if>
+      <if test="merchant_address != null">
+        merchant_address,
+      </if>
+      <if test="merchant_site != null">
+        merchant_site,
+      </if>
+      <if test="merchant_icp != null">
+        merchant_icp,
+      </if>
+      <if test="merchant_bank_account_name != null">
+        merchant_bank_account_name,
+      </if>
+      <if test="merchant_bank_account != null">
+        merchant_bank_account,
+      </if>
+      <if test="merchant_bank_name != null">
+        merchant_bank_name,
+      </if>
+      <if test="merchant_bank_phone != null">
+        merchant_bank_phone,
+      </if>
+      <if test="merchant_status != null">
+        merchant_status,
+      </if>
+      <if test="merchant_no != null">
+        merchant_no,
+      </if>
+      <if test="merchant_req_key != null">
+        merchant_req_key,
+      </if>
+      <if test="merchant_res_key != null">
+        merchant_res_key,
+      </if>
+      <if test="merchant_total_cash != null">
+        merchant_total_cash,
+      </if>
+      <if test="merchant_wait_cash != null">
+        merchant_wait_cash,
+      </if>
+      <if test="merchant_withdraw_cash != null">
+        merchant_withdraw_cash,
+      </if>
+      <if test="create_time != null">
+        create_time,
+      </if>
+      <if test="merchant_res != null">
+        merchant_res,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="merchant_id != null">
+        #{merchant_id,jdbcType=INTEGER},
+      </if>
+      <if test="agent_id != null">
+        #{agent_id,jdbcType=INTEGER},
+      </if>
+      <if test="merchant_name != null">
+        #{merchant_name,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_nickname != null">
+        #{merchant_nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_business_no != null">
+        #{merchant_business_no,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_business_date != null">
+        #{merchant_business_date,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_email != null">
+        #{merchant_email,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_user_no != null">
+        #{merchant_user_no,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_user_name != null">
+        #{merchant_user_name,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_user_phone != null">
+        #{merchant_user_phone,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_address != null">
+        #{merchant_address,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_site != null">
+        #{merchant_site,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_icp != null">
+        #{merchant_icp,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_bank_account_name != null">
+        #{merchant_bank_account_name,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_bank_account != null">
+        #{merchant_bank_account,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_bank_name != null">
+        #{merchant_bank_name,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_bank_phone != null">
+        #{merchant_bank_phone,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_status != null">
+        #{merchant_status,jdbcType=BIT},
+      </if>
+      <if test="merchant_no != null">
+        #{merchant_no,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_req_key != null">
+        #{merchant_req_key,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_res_key != null">
+        #{merchant_res_key,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_total_cash != null">
+        #{merchant_total_cash,jdbcType=BIGINT},
+      </if>
+      <if test="merchant_wait_cash != null">
+        #{merchant_wait_cash,jdbcType=BIGINT},
+      </if>
+      <if test="merchant_withdraw_cash != null">
+        #{merchant_withdraw_cash,jdbcType=BIGINT},
+      </if>
+      <if test="create_time != null">
+        #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="merchant_res != null">
+        #{merchant_res,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hengaiw.model.dao.model.HaMerchantExample" resultType="java.lang.Long">
+    select count(*) from ha_merchant
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ha_merchant
+    <set>
+      <if test="record.merchant_id != null">
+        merchant_id = #{record.merchant_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.agent_id != null">
+        agent_id = #{record.agent_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.merchant_name != null">
+        merchant_name = #{record.merchant_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_nickname != null">
+        merchant_nickname = #{record.merchant_nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_business_no != null">
+        merchant_business_no = #{record.merchant_business_no,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_business_date != null">
+        merchant_business_date = #{record.merchant_business_date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_email != null">
+        merchant_email = #{record.merchant_email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_user_no != null">
+        merchant_user_no = #{record.merchant_user_no,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_user_name != null">
+        merchant_user_name = #{record.merchant_user_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_user_phone != null">
+        merchant_user_phone = #{record.merchant_user_phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_address != null">
+        merchant_address = #{record.merchant_address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_site != null">
+        merchant_site = #{record.merchant_site,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_icp != null">
+        merchant_icp = #{record.merchant_icp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_bank_account_name != null">
+        merchant_bank_account_name = #{record.merchant_bank_account_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_bank_account != null">
+        merchant_bank_account = #{record.merchant_bank_account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_bank_name != null">
+        merchant_bank_name = #{record.merchant_bank_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_bank_phone != null">
+        merchant_bank_phone = #{record.merchant_bank_phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_status != null">
+        merchant_status = #{record.merchant_status,jdbcType=BIT},
+      </if>
+      <if test="record.merchant_no != null">
+        merchant_no = #{record.merchant_no,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_req_key != null">
+        merchant_req_key = #{record.merchant_req_key,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_res_key != null">
+        merchant_res_key = #{record.merchant_res_key,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_total_cash != null">
+        merchant_total_cash = #{record.merchant_total_cash,jdbcType=BIGINT},
+      </if>
+      <if test="record.merchant_wait_cash != null">
+        merchant_wait_cash = #{record.merchant_wait_cash,jdbcType=BIGINT},
+      </if>
+      <if test="record.merchant_withdraw_cash != null">
+        merchant_withdraw_cash = #{record.merchant_withdraw_cash,jdbcType=BIGINT},
+      </if>
+      <if test="record.create_time != null">
+        create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.merchant_res != null">
+        merchant_res = #{record.merchant_res,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update ha_merchant
+    set merchant_id = #{record.merchant_id,jdbcType=INTEGER},
+      agent_id = #{record.agent_id,jdbcType=INTEGER},
+      merchant_name = #{record.merchant_name,jdbcType=VARCHAR},
+      merchant_nickname = #{record.merchant_nickname,jdbcType=VARCHAR},
+      merchant_business_no = #{record.merchant_business_no,jdbcType=VARCHAR},
+      merchant_business_date = #{record.merchant_business_date,jdbcType=VARCHAR},
+      merchant_email = #{record.merchant_email,jdbcType=VARCHAR},
+      merchant_user_no = #{record.merchant_user_no,jdbcType=VARCHAR},
+      merchant_user_name = #{record.merchant_user_name,jdbcType=VARCHAR},
+      merchant_user_phone = #{record.merchant_user_phone,jdbcType=VARCHAR},
+      merchant_address = #{record.merchant_address,jdbcType=VARCHAR},
+      merchant_site = #{record.merchant_site,jdbcType=VARCHAR},
+      merchant_icp = #{record.merchant_icp,jdbcType=VARCHAR},
+      merchant_bank_account_name = #{record.merchant_bank_account_name,jdbcType=VARCHAR},
+      merchant_bank_account = #{record.merchant_bank_account,jdbcType=VARCHAR},
+      merchant_bank_name = #{record.merchant_bank_name,jdbcType=VARCHAR},
+      merchant_bank_phone = #{record.merchant_bank_phone,jdbcType=VARCHAR},
+      merchant_status = #{record.merchant_status,jdbcType=BIT},
+      merchant_no = #{record.merchant_no,jdbcType=VARCHAR},
+      merchant_req_key = #{record.merchant_req_key,jdbcType=VARCHAR},
+      merchant_res_key = #{record.merchant_res_key,jdbcType=VARCHAR},
+      merchant_total_cash = #{record.merchant_total_cash,jdbcType=BIGINT},
+      merchant_wait_cash = #{record.merchant_wait_cash,jdbcType=BIGINT},
+      merchant_withdraw_cash = #{record.merchant_withdraw_cash,jdbcType=BIGINT},
+      create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      merchant_res = #{record.merchant_res,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ha_merchant
+    set merchant_id = #{record.merchant_id,jdbcType=INTEGER},
+      agent_id = #{record.agent_id,jdbcType=INTEGER},
+      merchant_name = #{record.merchant_name,jdbcType=VARCHAR},
+      merchant_nickname = #{record.merchant_nickname,jdbcType=VARCHAR},
+      merchant_business_no = #{record.merchant_business_no,jdbcType=VARCHAR},
+      merchant_business_date = #{record.merchant_business_date,jdbcType=VARCHAR},
+      merchant_email = #{record.merchant_email,jdbcType=VARCHAR},
+      merchant_user_no = #{record.merchant_user_no,jdbcType=VARCHAR},
+      merchant_user_name = #{record.merchant_user_name,jdbcType=VARCHAR},
+      merchant_user_phone = #{record.merchant_user_phone,jdbcType=VARCHAR},
+      merchant_address = #{record.merchant_address,jdbcType=VARCHAR},
+      merchant_site = #{record.merchant_site,jdbcType=VARCHAR},
+      merchant_icp = #{record.merchant_icp,jdbcType=VARCHAR},
+      merchant_bank_account_name = #{record.merchant_bank_account_name,jdbcType=VARCHAR},
+      merchant_bank_account = #{record.merchant_bank_account,jdbcType=VARCHAR},
+      merchant_bank_name = #{record.merchant_bank_name,jdbcType=VARCHAR},
+      merchant_bank_phone = #{record.merchant_bank_phone,jdbcType=VARCHAR},
+      merchant_status = #{record.merchant_status,jdbcType=BIT},
+      merchant_no = #{record.merchant_no,jdbcType=VARCHAR},
+      merchant_req_key = #{record.merchant_req_key,jdbcType=VARCHAR},
+      merchant_res_key = #{record.merchant_res_key,jdbcType=VARCHAR},
+      merchant_total_cash = #{record.merchant_total_cash,jdbcType=BIGINT},
+      merchant_wait_cash = #{record.merchant_wait_cash,jdbcType=BIGINT},
+      merchant_withdraw_cash = #{record.merchant_withdraw_cash,jdbcType=BIGINT},
+      create_time = #{record.create_time,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hengaiw.model.dao.model.HaMerchant">
+    update ha_merchant
+    <set>
+      <if test="agent_id != null">
+        agent_id = #{agent_id,jdbcType=INTEGER},
+      </if>
+      <if test="merchant_name != null">
+        merchant_name = #{merchant_name,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_nickname != null">
+        merchant_nickname = #{merchant_nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_business_no != null">
+        merchant_business_no = #{merchant_business_no,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_business_date != null">
+        merchant_business_date = #{merchant_business_date,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_email != null">
+        merchant_email = #{merchant_email,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_user_no != null">
+        merchant_user_no = #{merchant_user_no,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_user_name != null">
+        merchant_user_name = #{merchant_user_name,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_user_phone != null">
+        merchant_user_phone = #{merchant_user_phone,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_address != null">
+        merchant_address = #{merchant_address,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_site != null">
+        merchant_site = #{merchant_site,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_icp != null">
+        merchant_icp = #{merchant_icp,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_bank_account_name != null">
+        merchant_bank_account_name = #{merchant_bank_account_name,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_bank_account != null">
+        merchant_bank_account = #{merchant_bank_account,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_bank_name != null">
+        merchant_bank_name = #{merchant_bank_name,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_bank_phone != null">
+        merchant_bank_phone = #{merchant_bank_phone,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_status != null">
+        merchant_status = #{merchant_status,jdbcType=BIT},
+      </if>
+      <if test="merchant_no != null">
+        merchant_no = #{merchant_no,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_req_key != null">
+        merchant_req_key = #{merchant_req_key,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_res_key != null">
+        merchant_res_key = #{merchant_res_key,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_total_cash != null">
+        merchant_total_cash = #{merchant_total_cash,jdbcType=BIGINT},
+      </if>
+      <if test="merchant_wait_cash != null">
+        merchant_wait_cash = #{merchant_wait_cash,jdbcType=BIGINT},
+      </if>
+      <if test="merchant_withdraw_cash != null">
+        merchant_withdraw_cash = #{merchant_withdraw_cash,jdbcType=BIGINT},
+      </if>
+      <if test="create_time != null">
+        create_time = #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="merchant_res != null">
+        merchant_res = #{merchant_res,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where merchant_id = #{merchant_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hengaiw.model.dao.model.HaMerchant">
+    update ha_merchant
+    set agent_id = #{agent_id,jdbcType=INTEGER},
+      merchant_name = #{merchant_name,jdbcType=VARCHAR},
+      merchant_nickname = #{merchant_nickname,jdbcType=VARCHAR},
+      merchant_business_no = #{merchant_business_no,jdbcType=VARCHAR},
+      merchant_business_date = #{merchant_business_date,jdbcType=VARCHAR},
+      merchant_email = #{merchant_email,jdbcType=VARCHAR},
+      merchant_user_no = #{merchant_user_no,jdbcType=VARCHAR},
+      merchant_user_name = #{merchant_user_name,jdbcType=VARCHAR},
+      merchant_user_phone = #{merchant_user_phone,jdbcType=VARCHAR},
+      merchant_address = #{merchant_address,jdbcType=VARCHAR},
+      merchant_site = #{merchant_site,jdbcType=VARCHAR},
+      merchant_icp = #{merchant_icp,jdbcType=VARCHAR},
+      merchant_bank_account_name = #{merchant_bank_account_name,jdbcType=VARCHAR},
+      merchant_bank_account = #{merchant_bank_account,jdbcType=VARCHAR},
+      merchant_bank_name = #{merchant_bank_name,jdbcType=VARCHAR},
+      merchant_bank_phone = #{merchant_bank_phone,jdbcType=VARCHAR},
+      merchant_status = #{merchant_status,jdbcType=BIT},
+      merchant_no = #{merchant_no,jdbcType=VARCHAR},
+      merchant_req_key = #{merchant_req_key,jdbcType=VARCHAR},
+      merchant_res_key = #{merchant_res_key,jdbcType=VARCHAR},
+      merchant_total_cash = #{merchant_total_cash,jdbcType=BIGINT},
+      merchant_wait_cash = #{merchant_wait_cash,jdbcType=BIGINT},
+      merchant_withdraw_cash = #{merchant_withdraw_cash,jdbcType=BIGINT},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      merchant_res = #{merchant_res,jdbcType=LONGVARCHAR}
+    where merchant_id = #{merchant_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hengaiw.model.dao.model.HaMerchant">
+    update ha_merchant
+    set agent_id = #{agent_id,jdbcType=INTEGER},
+      merchant_name = #{merchant_name,jdbcType=VARCHAR},
+      merchant_nickname = #{merchant_nickname,jdbcType=VARCHAR},
+      merchant_business_no = #{merchant_business_no,jdbcType=VARCHAR},
+      merchant_business_date = #{merchant_business_date,jdbcType=VARCHAR},
+      merchant_email = #{merchant_email,jdbcType=VARCHAR},
+      merchant_user_no = #{merchant_user_no,jdbcType=VARCHAR},
+      merchant_user_name = #{merchant_user_name,jdbcType=VARCHAR},
+      merchant_user_phone = #{merchant_user_phone,jdbcType=VARCHAR},
+      merchant_address = #{merchant_address,jdbcType=VARCHAR},
+      merchant_site = #{merchant_site,jdbcType=VARCHAR},
+      merchant_icp = #{merchant_icp,jdbcType=VARCHAR},
+      merchant_bank_account_name = #{merchant_bank_account_name,jdbcType=VARCHAR},
+      merchant_bank_account = #{merchant_bank_account,jdbcType=VARCHAR},
+      merchant_bank_name = #{merchant_bank_name,jdbcType=VARCHAR},
+      merchant_bank_phone = #{merchant_bank_phone,jdbcType=VARCHAR},
+      merchant_status = #{merchant_status,jdbcType=BIT},
+      merchant_no = #{merchant_no,jdbcType=VARCHAR},
+      merchant_req_key = #{merchant_req_key,jdbcType=VARCHAR},
+      merchant_res_key = #{merchant_res_key,jdbcType=VARCHAR},
+      merchant_total_cash = #{merchant_total_cash,jdbcType=BIGINT},
+      merchant_wait_cash = #{merchant_wait_cash,jdbcType=BIGINT},
+      merchant_withdraw_cash = #{merchant_withdraw_cash,jdbcType=BIGINT},
+      create_time = #{create_time,jdbcType=TIMESTAMP}
+    where merchant_id = #{merchant_id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hengaiw.pay.model.dao.mapper.HaGadminMapper">
+  <resultMap id="BaseResultMap" type="com.hengaiw.pay.model.dao.model.HaGadmin">
+    <id column="gid" jdbcType="SMALLINT" property="gid" />
+    <result column="gname" jdbcType="VARCHAR" property="gname" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hengaiw.pay.model.dao.model.HaGadmin">
+    <result column="limits" jdbcType="LONGVARCHAR" property="limits" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    gid, gname
+  </sql>
+  <sql id="Blob_Column_List">
+    limits
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.hengaiw.pay.model.dao.model.HaGadminExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ha_gadmin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.hengaiw.pay.model.dao.model.HaGadminExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ha_gadmin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ha_gadmin
+    where gid = #{gid,jdbcType=SMALLINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from ha_gadmin
+    where gid = #{gid,jdbcType=SMALLINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hengaiw.pay.model.dao.model.HaGadminExample">
+    delete from ha_gadmin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hengaiw.pay.model.dao.model.HaGadmin">
+    <selectKey keyProperty="gid" order="AFTER" resultType="java.lang.Short">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ha_gadmin (gname, limits)
+    values (#{gname,jdbcType=VARCHAR}, #{limits,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hengaiw.pay.model.dao.model.HaGadmin">
+    <selectKey keyProperty="gid" order="AFTER" resultType="java.lang.Short">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ha_gadmin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gname != null">
+        gname,
+      </if>
+      <if test="limits != null">
+        limits,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gname != null">
+        #{gname,jdbcType=VARCHAR},
+      </if>
+      <if test="limits != null">
+        #{limits,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hengaiw.pay.model.dao.model.HaGadminExample" resultType="java.lang.Long">
+    select count(*) from ha_gadmin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ha_gadmin
+    <set>
+      <if test="record.gid != null">
+        gid = #{record.gid,jdbcType=SMALLINT},
+      </if>
+      <if test="record.gname != null">
+        gname = #{record.gname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.limits != null">
+        limits = #{record.limits,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update ha_gadmin
+    set gid = #{record.gid,jdbcType=SMALLINT},
+      gname = #{record.gname,jdbcType=VARCHAR},
+      limits = #{record.limits,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ha_gadmin
+    set gid = #{record.gid,jdbcType=SMALLINT},
+      gname = #{record.gname,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hengaiw.pay.model.dao.model.HaGadmin">
+    update ha_gadmin
+    <set>
+      <if test="gname != null">
+        gname = #{gname,jdbcType=VARCHAR},
+      </if>
+      <if test="limits != null">
+        limits = #{limits,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where gid = #{gid,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hengaiw.pay.model.dao.model.HaGadmin">
+    update ha_gadmin
+    set gname = #{gname,jdbcType=VARCHAR},
+      limits = #{limits,jdbcType=LONGVARCHAR}
+    where gid = #{gid,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hengaiw.pay.model.dao.model.HaGadmin">
+    update ha_gadmin
+    set gname = #{gname,jdbcType=VARCHAR}
+    where gid = #{gid,jdbcType=SMALLINT}
+  </update>
+</mapper>

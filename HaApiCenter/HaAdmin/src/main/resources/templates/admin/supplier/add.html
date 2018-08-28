@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="/css/ha_common.css" media="all" />
+	</head>
+
+	<body>
+<div style="margin:35px;">
+<form class="layui-form layui-form-pane" action="">
+  
+ <div class="layui-form-item">
+    <label class="layui-form-label">供应商名称</label>
+    <div class="layui-input-inline">
+      <input name="supplier_name" autocomplete="off" lay-verify="required" placeholder="请输入供应商名称" class="layui-input" type="text">
+    </div>
+    <label class="layui-form-label">联系人</label>
+    <div class="layui-input-inline">
+      <input name="supplier_contact" autocomplete="off" lay-verify="required" placeholder="请输入联系人姓名" class="layui-input" type="text">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">联系电话</label>
+    <div class="layui-input-inline">
+      <input name="supplier_tel" autocomplete="off" lay-verify="required" placeholder="请输入联系电话" class="layui-input" type="text">
+    </div>
+    <label class="layui-form-label">联系手机</label>
+    <div class="layui-input-inline">
+      <input name="supplier_mobile" autocomplete="off" lay-verify="required" placeholder="请输入联系手机号码" class="layui-input" type="text">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">网络联系</label>
+    <div class="layui-input-inline">
+      <input name="supplier_online" autocomplete="off" lay-verify="required" placeholder="请输入网络联系方式，如QQ号，微信等" class="layui-input" type="text">
+    </div>
+    <label class="layui-form-label">供应商地址</label>
+    <div class="layui-input-inline">
+      <input name="supplier_address" autocomplete="off" lay-verify="required" placeholder="请输入供应商的地址" class="layui-input" type="text">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <button class="layui-btn" lay-submit="" lay-filter="addSupplierBtn">添加供应商</button>
+  </div>
+</form>
+</div>
+ <script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script>
+//Demo
+layui.use(['form','layer'], function(){
+  var form = layui.form;
+  var $ = layui.$;
+  
+ 
+//监听提交
+  form.on('submit(addSupplierBtn)', function(data){
+	  $.ajax({
+		  type: 'POST',
+		  data:data.field,
+		  url: '/admin/supplier/ajax_add',
+		  success: function(result){
+			  if(result.returnCode=='SUCCESS'){
+				  var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+				  parent.layui.table.reload("haList");
+				  parent.layer.close(index); //再执行关闭   
+			  }
+		  },
+		  dataType: 'json'
+		});  
+	  return false;
+  });
+});
+</script>
+</body>
+</html>

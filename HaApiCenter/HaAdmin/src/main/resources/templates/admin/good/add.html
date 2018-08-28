@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="../../css/ha_common.css" media="all" />
+	</head>
+
+	<body>
+<div style="margin:15px;">
+<blockquote class="layui-elem-quote layui-text">
+  此处进行商品的添加，编辑和删除等功能。
+</blockquote>
+<form class="layui-form layui-form-pane" action="">
+  <div class="layui-form-item">
+    <label class="layui-form-label">商品条形码</label>
+    <div class="layui-input-inline ha-input-inline">
+      <input name="title" autocomplete="off" placeholder="如无条形码，系统会自动生成" class="layui-input" type="text">
+    </div>
+    <div class="layui-form-mid layui-word-aux">通过扫描枪或是手动输入，输入标准商品条码，系统会自动匹配商品信息并填充</div>
+  </div>
+ <div class="layui-form-item">
+    <label class="layui-form-label">商品名称</label>
+    <div class="layui-input-inline">
+      <input name="title" autocomplete="off" placeholder="" class="layui-input" type="text">
+    </div>
+    <label class="layui-form-label">商品规格</label>
+    <div class="layui-input-inline">
+      <input name="title" autocomplete="off" placeholder="" class="layui-input" type="text">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">成本价</label>
+    <div class="layui-input-inline">
+      <input name="title" autocomplete="off" lay-verify="number"  placeholder="" class="layui-input" type="text">
+    </div>
+    <label class="layui-form-label">商品库存</label>
+    <div class="layui-input-inline">
+      <input name="title" autocomplete="off" lay-verify="number" placeholder="" class="layui-input" type="text">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">商品分类</label>
+    <div class="layui-input-inline">
+      <select name="modules" lay-verify="required" lay-search="">
+          <option value="">直接选择或搜索选择</option>
+          <option value="1">layer</option>
+          <option value="2">form</option>
+        </select>
+    </div>
+    <label class="layui-form-label">库存单位</label>
+    <div class="layui-input-inline">
+      <select name="modules" lay-verify="required" lay-search="">
+          <option value="">直接选择或搜索选择</option>
+          <option value="1">layer</option>
+          <option value="2">form</option>
+        </select>
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">供应商</label>
+    <div class="layui-input-inline">
+      <select name="modules" lay-verify="required" lay-search="">
+          <option value="">直接选择或搜索选择</option>
+          <option value="1">layer</option>
+          <option value="2">form</option>
+        </select>
+    </div>
+  </div>
+   <div class="layui-form-item">
+    <label class="layui-form-label">商品图片</label>
+    <div class="ha-box" id="ha_upload_btn">+</div>
+  </div>
+  
+  <div class="layui-form-item">
+    <button class="layui-btn" lay-submit="" lay-filter="demo1">跳转式提交</button>
+  </div>
+</form>
+</div>
+ <script type="text/javascript" src="../../plugins/layui/layui.js"></script>
+<script>
+//Demo
+layui.use(['form','layer'], function(){
+  var form = layui.form;
+  var $ = layui.$;
+//监听提交
+  form.on('submit(demo1)', function(data){
+    layer.alert(JSON.stringify(data.field), {
+      title: '最终的提交信息'
+    })
+    return false;
+  });
+  $(".ha-box").on('click',function(){
+	  var index=layer.open({
+		  type: 2,
+		  title: '选择图片',
+		  shadeClose: true,
+		  area: ['80%', '80%'],
+		  content: '/admin/upload/index' //iframe的url
+		}); 
+  });
+});
+</script>
+</body>
+</html>

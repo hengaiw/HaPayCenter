@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hengaiw.model.dao.mapper.HaTradeTypeMapper">
+  <resultMap id="BaseResultMap" type="com.hengaiw.model.dao.model.HaTradeType">
+    <id column="trade_type_id" jdbcType="INTEGER" property="trade_type_id" />
+    <result column="trade_type_name" jdbcType="VARCHAR" property="trade_type_name" />
+    <result column="trade_type_nickname" jdbcType="VARCHAR" property="trade_type_nickname" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    trade_type_id, trade_type_name, trade_type_nickname, create_time
+  </sql>
+  <select id="selectByExample" parameterType="com.hengaiw.model.dao.model.HaTradeTypeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ha_trade_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ha_trade_type
+    where trade_type_id = #{trade_type_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ha_trade_type
+    where trade_type_id = #{trade_type_id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hengaiw.model.dao.model.HaTradeTypeExample">
+    delete from ha_trade_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hengaiw.model.dao.model.HaTradeType">
+    <selectKey keyProperty="trade_type_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ha_trade_type (trade_type_name, trade_type_nickname, 
+      create_time)
+    values (#{trade_type_name,jdbcType=VARCHAR}, #{trade_type_nickname,jdbcType=VARCHAR}, 
+      #{create_time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hengaiw.model.dao.model.HaTradeType">
+    <selectKey keyProperty="trade_type_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ha_trade_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="trade_type_name != null">
+        trade_type_name,
+      </if>
+      <if test="trade_type_nickname != null">
+        trade_type_nickname,
+      </if>
+      <if test="create_time != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="trade_type_name != null">
+        #{trade_type_name,jdbcType=VARCHAR},
+      </if>
+      <if test="trade_type_nickname != null">
+        #{trade_type_nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="create_time != null">
+        #{create_time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hengaiw.model.dao.model.HaTradeTypeExample" resultType="java.lang.Long">
+    select count(*) from ha_trade_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ha_trade_type
+    <set>
+      <if test="record.trade_type_id != null">
+        trade_type_id = #{record.trade_type_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.trade_type_name != null">
+        trade_type_name = #{record.trade_type_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.trade_type_nickname != null">
+        trade_type_nickname = #{record.trade_type_nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.create_time != null">
+        create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ha_trade_type
+    set trade_type_id = #{record.trade_type_id,jdbcType=INTEGER},
+      trade_type_name = #{record.trade_type_name,jdbcType=VARCHAR},
+      trade_type_nickname = #{record.trade_type_nickname,jdbcType=VARCHAR},
+      create_time = #{record.create_time,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hengaiw.model.dao.model.HaTradeType">
+    update ha_trade_type
+    <set>
+      <if test="trade_type_name != null">
+        trade_type_name = #{trade_type_name,jdbcType=VARCHAR},
+      </if>
+      <if test="trade_type_nickname != null">
+        trade_type_nickname = #{trade_type_nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="create_time != null">
+        create_time = #{create_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where trade_type_id = #{trade_type_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hengaiw.model.dao.model.HaTradeType">
+    update ha_trade_type
+    set trade_type_name = #{trade_type_name,jdbcType=VARCHAR},
+      trade_type_nickname = #{trade_type_nickname,jdbcType=VARCHAR},
+      create_time = #{create_time,jdbcType=TIMESTAMP}
+    where trade_type_id = #{trade_type_id,jdbcType=INTEGER}
+  </update>
+</mapper>

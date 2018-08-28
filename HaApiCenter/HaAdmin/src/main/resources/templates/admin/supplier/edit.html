@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="/css/ha_common.css" media="all" />
+	</head>
+
+	<body>
+<div style="margin:35px;">
+<form class="layui-form layui-form-pane">
+  <div class="layui-form-item">
+    <label class="layui-form-label">上级分类</label>
+    <div class="layui-input-inline">
+      <select name="parent_id" lay-verify="required" lay-search="">
+          <option value="${category.parent_id}">${category.parent_name}</option>
+          <option value="0">无上级</option>
+          <#list list as cate> 
+          <#if cate.category_id!=category.category_id>
+          <option value="${cate.category_id}">${cate.category_name}</option>
+          </#if>
+          </#list>
+        </select>
+    </div>
+  </div>
+ <div class="layui-form-item">
+    <label class="layui-form-label">分类名称</label>
+    <div class="layui-input-inline">
+      <input name="category_name" autocomplete="off" value="${category.category_name}" lay-verify="required" placeholder="请输入分类名称" class="layui-input" type="text">
+    </div>
+  </div>
+  <div class="layui-form-item">
+  	<input type="hidden" name="category_id" value="${category.category_id}"/>
+    <button class="layui-btn" lay-submit="" lay-filter="editCategoryBtn">编辑分类</button>
+  </div>
+</form>
+</div>
+ <script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script>
+//Demo
+layui.use(['form','layer'], function(){
+  var form = layui.form;
+  var $ = layui.$;
+  
+ 
+//监听提交
+  form.on('submit(editCategoryBtn)', function(data){
+	  $.ajax({
+		  type: 'POST',
+		  data:data.field,
+		  url: '/admin/good/category/ajax_edit',
+		  success: function(result){
+			  if(result.returnCode=='SUCCESS'){
+				  var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+				  parent.layui.table.reload("idTest");
+				  parent.layer.close(index); //再执行关闭   
+			  }
+			  //return false;
+		  },
+		  dataType: 'json'
+		});  
+	  return false;
+  });
+});
+</script>
+</body>
+</html>

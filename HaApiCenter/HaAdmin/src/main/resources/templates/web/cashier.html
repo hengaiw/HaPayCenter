@@ -1,0 +1,94 @@
+<#assign base = request.contextPath />
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="fyunli">
+    <base id="base" href="${base}">
+    <title>微信支付宝收银台扫码测试</title>
+    <link href="layui/css/layui.css" rel="stylesheet">
+</head>
+
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+  <legend>微信支付宝收银台扫码测试</legend>
+  <div class="container">
+ 
+    <div class="main" align="center">
+        <div class="inwrap">
+            <h3>#收银台收银测试#</h3>
+            <h5>
+                <input type="radio" name="amount" id="amount" value="1" checked="checked"> 0.01 元&nbsp;&nbsp;
+                <input type="radio" name="amount" id="amount" value="100"> 1.00 元&nbsp;&nbsp;
+                <input type="radio" name="amount" id="amount" value="1000"> 10.00 元&nbsp;&nbsp;
+                任意: <input type="text" id="othAmt" style="width: 60px;" value=""> 元
+            </h5>
+            <div class="example" >
+                <div id="qrcode"></div>
+                <div><h3 id="vAmt" style="color: red">0.01元</h3></div>
+                <div><h4 >请使用支付宝或微信手机客户端扫一扫</h4></div>
+            </div>
+        </div>
+    </div>
+</div>
+</fieldset>
+<!-- Begin page content -->
+
+
+<footer class="footer">
+   
+</footer>
+
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="//cdn.jsdelivr.net/ie10-viewport/1.0.0/ie10-viewport.min.js"></script>
+<script src="//cdn.jsdelivr.net/jquery/1.12.1/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="${base}/js/qrcode.min.js"></script>
+
+<script>
+	
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+        width : 200,
+        height : 200
+    });
+
+    function makeCode () {
+        var elText = document.getElementById("othAmt");
+        var amt = $.trim(elText.value);
+        var vAmt = (amt/1).toFixed(2);
+        if (amt == '') {
+            amt = $("input[name='amount']:checked").val();
+            vAmt = (amt/100).toFixed(2);
+        }
+        if(vAmt == 'NaN' || vAmt <= 0) {
+            alert("输入金额不正确");
+            $("#othAmt").val('');
+            return;
+        }
+        $("#vAmt").text(vAmt+'元');
+        var qrText = '${baseUrl}/pay/cash.html?amount=' + (vAmt*100);
+        qrcode.makeCode(qrText);
+    }
+
+    makeCode();
+
+    $("input:radio").click(function () {
+        $("#othAmt").val('');
+        makeCode();
+    });
+
+    $("#othAmt").on("blur", function () {
+        makeCode();
+    }).on("keydown", function (e) {
+        if (e.keyCode == 13) {
+            makeCode();
+        }
+    });
+
+</script>
+
+</body>
+</html>

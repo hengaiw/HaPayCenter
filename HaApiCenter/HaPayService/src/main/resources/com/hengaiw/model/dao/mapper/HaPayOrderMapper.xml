@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hengaiw.model.dao.mapper.HaPayOrderMapper">
+  <resultMap id="BaseResultMap" type="com.hengaiw.model.dao.model.HaPayOrder">
+    <id column="pay_order_id" jdbcType="BIGINT" property="pay_order_id" />
+    <result column="pay_order_sn" jdbcType="VARCHAR" property="pay_order_sn" />
+    <result column="merchant_id" jdbcType="INTEGER" property="merchant_id" />
+    <result column="agent_id" jdbcType="INTEGER" property="agent_id" />
+    <result column="product_id" jdbcType="VARCHAR" property="product_id" />
+    <result column="merchant_rate" jdbcType="INTEGER" property="merchant_rate" />
+    <result column="merchant_charge" jdbcType="INTEGER" property="merchant_charge" />
+    <result column="agent_rate" jdbcType="INTEGER" property="agent_rate" />
+    <result column="agent_charge" jdbcType="INTEGER" property="agent_charge" />
+    <result column="product_rate" jdbcType="INTEGER" property="product_rate" />
+    <result column="product_charge" jdbcType="INTEGER" property="product_charge" />
+    <result column="merchant_order_no" jdbcType="VARCHAR" property="merchant_order_no" />
+    <result column="order_amount" jdbcType="BIGINT" property="order_amount" />
+    <result column="order_currency" jdbcType="VARCHAR" property="order_currency" />
+    <result column="order_status" jdbcType="TINYINT" property="order_status" />
+    <result column="order_clientIp" jdbcType="VARCHAR" property="order_clientIp" />
+    <result column="order_device" jdbcType="VARCHAR" property="order_device" />
+    <result column="order_subject" jdbcType="VARCHAR" property="order_subject" />
+    <result column="order_body" jdbcType="VARCHAR" property="order_body" />
+    <result column="order_extra" jdbcType="VARCHAR" property="order_extra" />
+    <result column="channel_mchid" jdbcType="VARCHAR" property="channel_mchid" />
+    <result column="channel_orderno" jdbcType="VARCHAR" property="channel_orderno" />
+    <result column="err_code" jdbcType="VARCHAR" property="err_code" />
+    <result column="err_msg" jdbcType="VARCHAR" property="err_msg" />
+    <result column="notify_url" jdbcType="VARCHAR" property="notify_url" />
+    <result column="notify_count" jdbcType="TINYINT" property="notify_count" />
+    <result column="last_notify_time" jdbcType="BIGINT" property="last_notify_time" />
+    <result column="expire_time" jdbcType="BIGINT" property="expire_time" />
+    <result column="pay_succ_time" jdbcType="BIGINT" property="pay_succ_time" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="update_time" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    pay_order_id, pay_order_sn, merchant_id, agent_id, product_id, merchant_rate, merchant_charge, 
+    agent_rate, agent_charge, product_rate, product_charge, merchant_order_no, order_amount, 
+    order_currency, order_status, order_clientIp, order_device, order_subject, order_body, 
+    order_extra, channel_mchid, channel_orderno, err_code, err_msg, notify_url, notify_count, 
+    last_notify_time, expire_time, pay_succ_time, create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.hengaiw.model.dao.model.HaPayOrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ha_pay_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ha_pay_order
+    where pay_order_id = #{pay_order_id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ha_pay_order
+    where pay_order_id = #{pay_order_id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hengaiw.model.dao.model.HaPayOrderExample">
+    delete from ha_pay_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hengaiw.model.dao.model.HaPayOrder">
+    <selectKey keyProperty="pay_order_id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ha_pay_order (pay_order_sn, merchant_id, agent_id, 
+      product_id, merchant_rate, merchant_charge, 
+      agent_rate, agent_charge, product_rate, 
+      product_charge, merchant_order_no, order_amount, 
+      order_currency, order_status, order_clientIp, 
+      order_device, order_subject, order_body, 
+      order_extra, channel_mchid, channel_orderno, 
+      err_code, err_msg, notify_url, 
+      notify_count, last_notify_time, expire_time, 
+      pay_succ_time, create_time, update_time
+      )
+    values (#{pay_order_sn,jdbcType=VARCHAR}, #{merchant_id,jdbcType=INTEGER}, #{agent_id,jdbcType=INTEGER}, 
+      #{product_id,jdbcType=VARCHAR}, #{merchant_rate,jdbcType=INTEGER}, #{merchant_charge,jdbcType=INTEGER}, 
+      #{agent_rate,jdbcType=INTEGER}, #{agent_charge,jdbcType=INTEGER}, #{product_rate,jdbcType=INTEGER}, 
+      #{product_charge,jdbcType=INTEGER}, #{merchant_order_no,jdbcType=VARCHAR}, #{order_amount,jdbcType=BIGINT}, 
+      #{order_currency,jdbcType=VARCHAR}, #{order_status,jdbcType=TINYINT}, #{order_clientIp,jdbcType=VARCHAR}, 
+      #{order_device,jdbcType=VARCHAR}, #{order_subject,jdbcType=VARCHAR}, #{order_body,jdbcType=VARCHAR}, 
+      #{order_extra,jdbcType=VARCHAR}, #{channel_mchid,jdbcType=VARCHAR}, #{channel_orderno,jdbcType=VARCHAR}, 
+      #{err_code,jdbcType=VARCHAR}, #{err_msg,jdbcType=VARCHAR}, #{notify_url,jdbcType=VARCHAR}, 
+      #{notify_count,jdbcType=TINYINT}, #{last_notify_time,jdbcType=BIGINT}, #{expire_time,jdbcType=BIGINT}, 
+      #{pay_succ_time,jdbcType=BIGINT}, #{create_time,jdbcType=TIMESTAMP}, #{update_time,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hengaiw.model.dao.model.HaPayOrder">
+    <selectKey keyProperty="pay_order_id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ha_pay_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pay_order_sn != null">
+        pay_order_sn,
+      </if>
+      <if test="merchant_id != null">
+        merchant_id,
+      </if>
+      <if test="agent_id != null">
+        agent_id,
+      </if>
+      <if test="product_id != null">
+        product_id,
+      </if>
+      <if test="merchant_rate != null">
+        merchant_rate,
+      </if>
+      <if test="merchant_charge != null">
+        merchant_charge,
+      </if>
+      <if test="agent_rate != null">
+        agent_rate,
+      </if>
+      <if test="agent_charge != null">
+        agent_charge,
+      </if>
+      <if test="product_rate != null">
+        product_rate,
+      </if>
+      <if test="product_charge != null">
+        product_charge,
+      </if>
+      <if test="merchant_order_no != null">
+        merchant_order_no,
+      </if>
+      <if test="order_amount != null">
+        order_amount,
+      </if>
+      <if test="order_currency != null">
+        order_currency,
+      </if>
+      <if test="order_status != null">
+        order_status,
+      </if>
+      <if test="order_clientIp != null">
+        order_clientIp,
+      </if>
+      <if test="order_device != null">
+        order_device,
+      </if>
+      <if test="order_subject != null">
+        order_subject,
+      </if>
+      <if test="order_body != null">
+        order_body,
+      </if>
+      <if test="order_extra != null">
+        order_extra,
+      </if>
+      <if test="channel_mchid != null">
+        channel_mchid,
+      </if>
+      <if test="channel_orderno != null">
+        channel_orderno,
+      </if>
+      <if test="err_code != null">
+        err_code,
+      </if>
+      <if test="err_msg != null">
+        err_msg,
+      </if>
+      <if test="notify_url != null">
+        notify_url,
+      </if>
+      <if test="notify_count != null">
+        notify_count,
+      </if>
+      <if test="last_notify_time != null">
+        last_notify_time,
+      </if>
+      <if test="expire_time != null">
+        expire_time,
+      </if>
+      <if test="pay_succ_time != null">
+        pay_succ_time,
+      </if>
+      <if test="create_time != null">
+        create_time,
+      </if>
+      <if test="update_time != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pay_order_sn != null">
+        #{pay_order_sn,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_id != null">
+        #{merchant_id,jdbcType=INTEGER},
+      </if>
+      <if test="agent_id != null">
+        #{agent_id,jdbcType=INTEGER},
+      </if>
+      <if test="product_id != null">
+        #{product_id,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_rate != null">
+        #{merchant_rate,jdbcType=INTEGER},
+      </if>
+      <if test="merchant_charge != null">
+        #{merchant_charge,jdbcType=INTEGER},
+      </if>
+      <if test="agent_rate != null">
+        #{agent_rate,jdbcType=INTEGER},
+      </if>
+      <if test="agent_charge != null">
+        #{agent_charge,jdbcType=INTEGER},
+      </if>
+      <if test="product_rate != null">
+        #{product_rate,jdbcType=INTEGER},
+      </if>
+      <if test="product_charge != null">
+        #{product_charge,jdbcType=INTEGER},
+      </if>
+      <if test="merchant_order_no != null">
+        #{merchant_order_no,jdbcType=VARCHAR},
+      </if>
+      <if test="order_amount != null">
+        #{order_amount,jdbcType=BIGINT},
+      </if>
+      <if test="order_currency != null">
+        #{order_currency,jdbcType=VARCHAR},
+      </if>
+      <if test="order_status != null">
+        #{order_status,jdbcType=TINYINT},
+      </if>
+      <if test="order_clientIp != null">
+        #{order_clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="order_device != null">
+        #{order_device,jdbcType=VARCHAR},
+      </if>
+      <if test="order_subject != null">
+        #{order_subject,jdbcType=VARCHAR},
+      </if>
+      <if test="order_body != null">
+        #{order_body,jdbcType=VARCHAR},
+      </if>
+      <if test="order_extra != null">
+        #{order_extra,jdbcType=VARCHAR},
+      </if>
+      <if test="channel_mchid != null">
+        #{channel_mchid,jdbcType=VARCHAR},
+      </if>
+      <if test="channel_orderno != null">
+        #{channel_orderno,jdbcType=VARCHAR},
+      </if>
+      <if test="err_code != null">
+        #{err_code,jdbcType=VARCHAR},
+      </if>
+      <if test="err_msg != null">
+        #{err_msg,jdbcType=VARCHAR},
+      </if>
+      <if test="notify_url != null">
+        #{notify_url,jdbcType=VARCHAR},
+      </if>
+      <if test="notify_count != null">
+        #{notify_count,jdbcType=TINYINT},
+      </if>
+      <if test="last_notify_time != null">
+        #{last_notify_time,jdbcType=BIGINT},
+      </if>
+      <if test="expire_time != null">
+        #{expire_time,jdbcType=BIGINT},
+      </if>
+      <if test="pay_succ_time != null">
+        #{pay_succ_time,jdbcType=BIGINT},
+      </if>
+      <if test="create_time != null">
+        #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null">
+        #{update_time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hengaiw.model.dao.model.HaPayOrderExample" resultType="java.lang.Long">
+    select count(*) from ha_pay_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ha_pay_order
+    <set>
+      <if test="record.pay_order_id != null">
+        pay_order_id = #{record.pay_order_id,jdbcType=BIGINT},
+      </if>
+      <if test="record.pay_order_sn != null">
+        pay_order_sn = #{record.pay_order_sn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_id != null">
+        merchant_id = #{record.merchant_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.agent_id != null">
+        agent_id = #{record.agent_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.product_id != null">
+        product_id = #{record.product_id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_rate != null">
+        merchant_rate = #{record.merchant_rate,jdbcType=INTEGER},
+      </if>
+      <if test="record.merchant_charge != null">
+        merchant_charge = #{record.merchant_charge,jdbcType=INTEGER},
+      </if>
+      <if test="record.agent_rate != null">
+        agent_rate = #{record.agent_rate,jdbcType=INTEGER},
+      </if>
+      <if test="record.agent_charge != null">
+        agent_charge = #{record.agent_charge,jdbcType=INTEGER},
+      </if>
+      <if test="record.product_rate != null">
+        product_rate = #{record.product_rate,jdbcType=INTEGER},
+      </if>
+      <if test="record.product_charge != null">
+        product_charge = #{record.product_charge,jdbcType=INTEGER},
+      </if>
+      <if test="record.merchant_order_no != null">
+        merchant_order_no = #{record.merchant_order_no,jdbcType=VARCHAR},
+      </if>
+      <if test="record.order_amount != null">
+        order_amount = #{record.order_amount,jdbcType=BIGINT},
+      </if>
+      <if test="record.order_currency != null">
+        order_currency = #{record.order_currency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.order_status != null">
+        order_status = #{record.order_status,jdbcType=TINYINT},
+      </if>
+      <if test="record.order_clientIp != null">
+        order_clientIp = #{record.order_clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.order_device != null">
+        order_device = #{record.order_device,jdbcType=VARCHAR},
+      </if>
+      <if test="record.order_subject != null">
+        order_subject = #{record.order_subject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.order_body != null">
+        order_body = #{record.order_body,jdbcType=VARCHAR},
+      </if>
+      <if test="record.order_extra != null">
+        order_extra = #{record.order_extra,jdbcType=VARCHAR},
+      </if>
+      <if test="record.channel_mchid != null">
+        channel_mchid = #{record.channel_mchid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.channel_orderno != null">
+        channel_orderno = #{record.channel_orderno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.err_code != null">
+        err_code = #{record.err_code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.err_msg != null">
+        err_msg = #{record.err_msg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notify_url != null">
+        notify_url = #{record.notify_url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notify_count != null">
+        notify_count = #{record.notify_count,jdbcType=TINYINT},
+      </if>
+      <if test="record.last_notify_time != null">
+        last_notify_time = #{record.last_notify_time,jdbcType=BIGINT},
+      </if>
+      <if test="record.expire_time != null">
+        expire_time = #{record.expire_time,jdbcType=BIGINT},
+      </if>
+      <if test="record.pay_succ_time != null">
+        pay_succ_time = #{record.pay_succ_time,jdbcType=BIGINT},
+      </if>
+      <if test="record.create_time != null">
+        create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.update_time != null">
+        update_time = #{record.update_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ha_pay_order
+    set pay_order_id = #{record.pay_order_id,jdbcType=BIGINT},
+      pay_order_sn = #{record.pay_order_sn,jdbcType=VARCHAR},
+      merchant_id = #{record.merchant_id,jdbcType=INTEGER},
+      agent_id = #{record.agent_id,jdbcType=INTEGER},
+      product_id = #{record.product_id,jdbcType=VARCHAR},
+      merchant_rate = #{record.merchant_rate,jdbcType=INTEGER},
+      merchant_charge = #{record.merchant_charge,jdbcType=INTEGER},
+      agent_rate = #{record.agent_rate,jdbcType=INTEGER},
+      agent_charge = #{record.agent_charge,jdbcType=INTEGER},
+      product_rate = #{record.product_rate,jdbcType=INTEGER},
+      product_charge = #{record.product_charge,jdbcType=INTEGER},
+      merchant_order_no = #{record.merchant_order_no,jdbcType=VARCHAR},
+      order_amount = #{record.order_amount,jdbcType=BIGINT},
+      order_currency = #{record.order_currency,jdbcType=VARCHAR},
+      order_status = #{record.order_status,jdbcType=TINYINT},
+      order_clientIp = #{record.order_clientIp,jdbcType=VARCHAR},
+      order_device = #{record.order_device,jdbcType=VARCHAR},
+      order_subject = #{record.order_subject,jdbcType=VARCHAR},
+      order_body = #{record.order_body,jdbcType=VARCHAR},
+      order_extra = #{record.order_extra,jdbcType=VARCHAR},
+      channel_mchid = #{record.channel_mchid,jdbcType=VARCHAR},
+      channel_orderno = #{record.channel_orderno,jdbcType=VARCHAR},
+      err_code = #{record.err_code,jdbcType=VARCHAR},
+      err_msg = #{record.err_msg,jdbcType=VARCHAR},
+      notify_url = #{record.notify_url,jdbcType=VARCHAR},
+      notify_count = #{record.notify_count,jdbcType=TINYINT},
+      last_notify_time = #{record.last_notify_time,jdbcType=BIGINT},
+      expire_time = #{record.expire_time,jdbcType=BIGINT},
+      pay_succ_time = #{record.pay_succ_time,jdbcType=BIGINT},
+      create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      update_time = #{record.update_time,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hengaiw.model.dao.model.HaPayOrder">
+    update ha_pay_order
+    <set>
+      <if test="pay_order_sn != null">
+        pay_order_sn = #{pay_order_sn,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_id != null">
+        merchant_id = #{merchant_id,jdbcType=INTEGER},
+      </if>
+      <if test="agent_id != null">
+        agent_id = #{agent_id,jdbcType=INTEGER},
+      </if>
+      <if test="product_id != null">
+        product_id = #{product_id,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_rate != null">
+        merchant_rate = #{merchant_rate,jdbcType=INTEGER},
+      </if>
+      <if test="merchant_charge != null">
+        merchant_charge = #{merchant_charge,jdbcType=INTEGER},
+      </if>
+      <if test="agent_rate != null">
+        agent_rate = #{agent_rate,jdbcType=INTEGER},
+      </if>
+      <if test="agent_charge != null">
+        agent_charge = #{agent_charge,jdbcType=INTEGER},
+      </if>
+      <if test="product_rate != null">
+        product_rate = #{product_rate,jdbcType=INTEGER},
+      </if>
+      <if test="product_charge != null">
+        product_charge = #{product_charge,jdbcType=INTEGER},
+      </if>
+      <if test="merchant_order_no != null">
+        merchant_order_no = #{merchant_order_no,jdbcType=VARCHAR},
+      </if>
+      <if test="order_amount != null">
+        order_amount = #{order_amount,jdbcType=BIGINT},
+      </if>
+      <if test="order_currency != null">
+        order_currency = #{order_currency,jdbcType=VARCHAR},
+      </if>
+      <if test="order_status != null">
+        order_status = #{order_status,jdbcType=TINYINT},
+      </if>
+      <if test="order_clientIp != null">
+        order_clientIp = #{order_clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="order_device != null">
+        order_device = #{order_device,jdbcType=VARCHAR},
+      </if>
+      <if test="order_subject != null">
+        order_subject = #{order_subject,jdbcType=VARCHAR},
+      </if>
+      <if test="order_body != null">
+        order_body = #{order_body,jdbcType=VARCHAR},
+      </if>
+      <if test="order_extra != null">
+        order_extra = #{order_extra,jdbcType=VARCHAR},
+      </if>
+      <if test="channel_mchid != null">
+        channel_mchid = #{channel_mchid,jdbcType=VARCHAR},
+      </if>
+      <if test="channel_orderno != null">
+        channel_orderno = #{channel_orderno,jdbcType=VARCHAR},
+      </if>
+      <if test="err_code != null">
+        err_code = #{err_code,jdbcType=VARCHAR},
+      </if>
+      <if test="err_msg != null">
+        err_msg = #{err_msg,jdbcType=VARCHAR},
+      </if>
+      <if test="notify_url != null">
+        notify_url = #{notify_url,jdbcType=VARCHAR},
+      </if>
+      <if test="notify_count != null">
+        notify_count = #{notify_count,jdbcType=TINYINT},
+      </if>
+      <if test="last_notify_time != null">
+        last_notify_time = #{last_notify_time,jdbcType=BIGINT},
+      </if>
+      <if test="expire_time != null">
+        expire_time = #{expire_time,jdbcType=BIGINT},
+      </if>
+      <if test="pay_succ_time != null">
+        pay_succ_time = #{pay_succ_time,jdbcType=BIGINT},
+      </if>
+      <if test="create_time != null">
+        create_time = #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="update_time != null">
+        update_time = #{update_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pay_order_id = #{pay_order_id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hengaiw.model.dao.model.HaPayOrder">
+    update ha_pay_order
+    set pay_order_sn = #{pay_order_sn,jdbcType=VARCHAR},
+      merchant_id = #{merchant_id,jdbcType=INTEGER},
+      agent_id = #{agent_id,jdbcType=INTEGER},
+      product_id = #{product_id,jdbcType=VARCHAR},
+      merchant_rate = #{merchant_rate,jdbcType=INTEGER},
+      merchant_charge = #{merchant_charge,jdbcType=INTEGER},
+      agent_rate = #{agent_rate,jdbcType=INTEGER},
+      agent_charge = #{agent_charge,jdbcType=INTEGER},
+      product_rate = #{product_rate,jdbcType=INTEGER},
+      product_charge = #{product_charge,jdbcType=INTEGER},
+      merchant_order_no = #{merchant_order_no,jdbcType=VARCHAR},
+      order_amount = #{order_amount,jdbcType=BIGINT},
+      order_currency = #{order_currency,jdbcType=VARCHAR},
+      order_status = #{order_status,jdbcType=TINYINT},
+      order_clientIp = #{order_clientIp,jdbcType=VARCHAR},
+      order_device = #{order_device,jdbcType=VARCHAR},
+      order_subject = #{order_subject,jdbcType=VARCHAR},
+      order_body = #{order_body,jdbcType=VARCHAR},
+      order_extra = #{order_extra,jdbcType=VARCHAR},
+      channel_mchid = #{channel_mchid,jdbcType=VARCHAR},
+      channel_orderno = #{channel_orderno,jdbcType=VARCHAR},
+      err_code = #{err_code,jdbcType=VARCHAR},
+      err_msg = #{err_msg,jdbcType=VARCHAR},
+      notify_url = #{notify_url,jdbcType=VARCHAR},
+      notify_count = #{notify_count,jdbcType=TINYINT},
+      last_notify_time = #{last_notify_time,jdbcType=BIGINT},
+      expire_time = #{expire_time,jdbcType=BIGINT},
+      pay_succ_time = #{pay_succ_time,jdbcType=BIGINT},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      update_time = #{update_time,jdbcType=TIMESTAMP}
+    where pay_order_id = #{pay_order_id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="screen-orientation" content="portrait">
+		<title>自助收银</title>
+		<style type="text/css" rel="stylesheet">
+			* {
+				moz-user-select: -moz-none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				-o-user-select: none;
+				-khtml-user-select: none;
+				user-select: none;
+				-webkit-tap-highlight-color: transparent
+			}
+			
+			.weixin {
+				background-color: #09BB07
+			}
+			
+			.zhifubao {
+				background-color: #0ae
+			}
+			
+			.qq {
+				background-color: #12b7f5
+			}
+			
+			.bestpay {
+				background-color: #ff2d55
+			}
+			
+			.white-bg {
+				background-color: #fff
+			}
+			
+			.disabled {
+				background-color: #C9C9C9
+			}
+			
+			html,
+			body {
+				height: 100%;
+				width: 100%;
+				margin: 0;
+				background-color: #eee
+			}
+			
+			html {
+				font-size: 62.5%
+			}
+			
+			body {
+				position: relative;
+				font-size: 1.4rem;
+				font-family: "Lantinghei SC", "Open Sans", Arial, "Hiragino Sans GB", "Microsoft YaHei", 微软雅黑, STHeiti, "WenQuanYi Micro Hei", SimSun, sans-serif
+			}
+			
+			#content {
+				height: 48%;
+				width: 100%;
+				position: relative;
+				box-sizing: border-box;
+				padding: 15px 15px 0
+			}
+			
+			@-webkit-keyframes shining {
+				0% {
+					opacity: 0
+				}
+				50% {
+					opacity: 0
+				}
+				50.1% {
+					opacity: 1
+				}
+				100% {
+					opacity: 1
+				}
+			}
+			
+			@keyframes shining {
+				0% {
+					opacity: 0
+				}
+				50% {
+					opacity: 0
+				}
+				50.1% {
+					opacity: 1
+				}
+				100% {
+					opacity: 1
+				}
+			}
+			
+			.wraps {
+				width: 100%;
+				height: 100%;
+				background-color: #fff;
+				position: relative
+			}
+			
+			.wraps #headimg {
+				position: absolute;
+				left: 50%;
+				top: 10%;
+				background-color: transparent;
+				width: 54px;
+				height: 54px
+			}
+			
+			.wraps #headimg img:first-child {
+				box-sizing: border-box;
+				height: 100%;
+				width: auto;
+				border-radius: 50%;
+				overflow: hidden;
+				border: 2px solid #fff
+			}
+			
+			.head_wrap {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				background-color: #fbfbfb;
+				background-repeat: no-repeat;
+				background-size: cover;
+				background-position: center
+			}
+			
+			.head_wrap #name {
+				position: absolute;
+				bottom: 8%;
+				width: 80%;
+				left: 10%;
+				text-align: center;
+				font-size: 1.6rem;
+				color: #252420;
+				margin: 0;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				overflow: hidden
+			}
+			
+			.wraps #amout_input {
+				position: absolute;
+				bottom: 6%;
+				width: 100%;
+				padding: 0 30px;
+				box-sizing: border-box
+			}
+			
+			.wraps .tips {
+				color: #5090ad;
+				display: block;
+				width: 100%;
+				margin-bottom: 0
+			}
+			
+			#moneys {
+				border-bottom: 1px solid #eee;
+				margin: 0;
+				line-height: 5rem;
+				font-size: 3rem;
+				text-align: left;
+				background-color: #fff;
+				position: relative
+			}
+			
+			.wraps #amout_input p span:first-child {
+				float: right;
+				font-size: 4rem
+			}
+			
+			#cursor {
+				width: 1px;
+				height: 36px;
+				border-right: 1px solid #000;
+				-webkit-animation: shining 1s linear infinite;
+				-o-animation: shining 1s linear infinite;
+				animation: shining 1s linear infinite;
+				position: absolute;
+				top: 12px;
+				right: 0
+			}
+			
+			@media screen and (max-width:320px) {
+				.wraps #amout_input p span#cursor {
+					top: 8px
+				}
+				.wraps .tips {
+					margin-bottom: 0
+				}
+				.wraps #headimg {
+					width: 48px;
+					height: 48px
+				}
+			}
+			
+			#support {
+				position: absolute;
+				bottom: 40%;
+				width: 100%;
+				text-align: center;
+				color: #666;
+				font-size: 1.2rem;
+				margin: 0;
+				line-height: 3rem
+			}
+			
+			#support img {
+				height: 1.2rem
+			}
+			
+			#keyboard {
+				height: 40%;
+				width: 100%;
+				position: absolute;
+				bottom: 0;
+				border-width: 1px 0 0 0;
+				border-color: #ccc;
+				border-style: solid;
+				background-color: #fff
+			}
+			
+			#keyboard button {
+				font-weight: 400;
+				font-size: 2.4rem;
+				outline: 0;
+				border-width: 0 0 1px 1px;
+				border-color: #ccc;
+				border-style: solid;
+				-webkit-tap-highlight-color: transparent
+			}
+			
+			#keyboard .number {
+				display: block;
+				width: 25%;
+				height: 25%;
+				float: left;
+				background-color: transparent
+			}
+			
+			#keyboard #del {
+				width: 25%;
+				height: 25%;
+				float: right;
+				position: relative;
+				background-color: transparent
+			}
+			
+			#keyboard #del:before {
+				content: '';
+				height: .8rem;
+				width: .8rem;
+				display: block;
+				border: 2px solid #333;
+				border-right-width: 0;
+				border-bottom-width: 0;
+				transform: rotate(-45deg);
+				-webkit-transform: rotate(-45deg);
+				-moz-transform: rotate(-45deg);
+				-o-transform: rotate(-45deg);
+				-ms-transform: rotate(-45deg);
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-top: -.5rem;
+				margin-left: -.9rem
+			}
+			
+			#keyboard #del:after {
+				content: '';
+				height: .2rem;
+				width: 1.8rem;
+				display: block;
+				background: #333;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-top: -.1rem;
+				margin-left: -.9rem
+			}
+			
+			#keyboard #pay {
+				width: 25%;
+				height: 75%;
+				float: right;
+				color: #fff;
+				font-size: 2rem;
+				padding: .5rem
+			}
+			
+			#keyboard #point,
+			#keyboard #zero {
+				width: 25%;
+				height: 25%;
+				float: left;
+				background-color: transparent
+			}
+			
+			#keyboard #zero {
+				border-left-width: 0
+			}
+			
+			#dialog,
+			#remark_win {
+				display: none
+			}
+			
+			.weui-mask {
+				position: absolute;
+				z-index: 1000;
+				top: 0;
+				right: 0;
+				left: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, .6)
+			}
+			
+			.weui-dialog {
+				position: absolute;
+				z-index: 5000;
+				width: 80%;
+				top: 30%;
+				left: 50%;
+				-webkit-transform: translate(-50%, -50%);
+				transform: translate(-50%, -50%);
+				background-color: #fff;
+				text-align: center;
+				border-radius: 3px;
+				overflow: hidden
+			}
+			
+			.weui-dialog__bd {
+				padding: 2.7em 2rem 1.7em;
+				min-height: 4rem;
+				font-size: 1.5rem;
+				line-height: 1.3;
+				word-wrap: break-word;
+				word-break: break-all;
+				color: #353535
+			}
+			
+			.weui-dialog__ft {
+				position: relative;
+				line-height: 4.8rem;
+				font-size: 1.8rem;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex
+			}
+			
+			.weui-dialog__ft:after {
+				content: "";
+				position: absolute;
+				left: 0;
+				top: 0;
+				right: 0;
+				height: 1px;
+				border-top: 1px solid #d5d5d6;
+				color: #d5d5d6;
+				-webkit-transform-origin: 0 0;
+				transform-origin: 0 0;
+				-webkit-transform: scaleY(0.5);
+				transform: scaleY(0.5)
+			}
+			
+			.weui-dialog__btn {
+				display: block;
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+				color: #0BB20C;
+				text-decoration: none;
+				-webkit-tap-highlight-color: transparent;
+				position: relative
+			}
+			
+			.weui-dialog__btn:active {
+				background-color: #EEE
+			}
+			
+			.weui-dialog__btn_default {
+				font-size: 1.5rem;
+				color: #666
+			}
+			
+			.weui-dialog__btn_primary {
+				font-size: 1.5rem;
+				color: #00a1fa
+			}
+			
+			.weui-dialog__btn:after {
+				content: " ";
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 1px;
+				bottom: 0;
+				border-left: 1px solid #D5D5D6;
+				color: #D5D5D6;
+				-webkit-transform-origin: 0 0;
+				transform-origin: 0 0;
+				-webkit-transform: scaleX(0.5);
+				transform: scaleX(0.5)
+			}
+			
+			.weui-dialog__title {
+				font-size: 1.6rem;
+				padding: 1.5rem 0 1rem;
+				line-height: 2rem;
+				color: #666
+			}
+			
+			.weui-dialog__input {
+				margin: 0 auto 2rem;
+				font-size: 1.5rem;
+				color: #555;
+				padding: .5rem;
+				text-align: left;
+				outline: 0;
+				border-radius: 5px;
+				width: 90%;
+				border: 1px solid rgba(130, 130, 130, .2);
+				-webkit-appearance: none;
+				-webkit-tap-highlight-color: transparent
+			}
+			
+			#remark_win .weui-dialog {
+				border-radius: 8px
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="content">
+			<div class="wraps">
+				<div class="head_wrap" id="head_wrap">
+					<div id="headimg" class="white-bg"><img src="/images/WiFi.png"></div>
+					<p id="name"></p>
+				</div>
+				<div id="amout_input"><span class="tips">支付金额</span>
+					<p id="moneys">&yen;&nbsp;<span id="price"></span><span id="cursor"></span></p>
+					<div style="font-size:1.2rem;color:#666">
+						<div id="remark" style="padding:5px 0;display:inline-block;-webkit-tap-highlight-color:transparent"><span id="remark_content" style="color:#888"></span> <span id="remark_btn" style="color:#5090ad">添加备注</span></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p id="support">中国普天 提供技术支持</p>
+		<div id="keyboard"><button class="number">1</button> <button class="number">2</button> <button class="number">3</button> <button id="del"></button> <button class="number">4</button> <button class="number">5</button> <button class="number">6</button> <button id="pay">支付</button> <button class="number">7</button> <button class="number">8</button> <button class="number">9</button> <button class="number">0</button> <button id="zero"></button> <button id="point">.</button></div>
+		<div id="dialog">
+			<div class="weui-mask"></div>
+			<div class="weui-dialog">
+				<div class="weui-dialog__bd" id="dig_content">暂未开通，请选择其它支付方式</div>
+				<div class="weui-dialog__ft">
+					<a href="javascript:;" id="confirm_btn" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+				</div>
+			</div>
+		</div>
+		<div id="remark_win" _style="display:block;">
+			<div class="weui-mask" id="remark_mask"></div>
+			<div class="weui-dialog">
+				<div class="weui-dialog__title">请填写支付备注</div>
+				<div class="textarea weui-dialog__input" id="remark_input" style="line-height:130%;max-height:5em;overflow:scroll" contenteditable="true"></div>
+				<p id="remark_tip" style="font-size:1rem;color:#666;text-align:left;padding:0 10px;margin-top:-1.5rem">最多输入30个字！</p>
+				<div class="weui-dialog__ft">
+					<a href="javascript:;" id="remark_cancel" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+					<a href="javascript:;" id="remark_confirm" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		function festivalRandom() {
+			var e = Math.random() > .5 ? 0 : 1;
+			document.getElementById("name").style.color = festivalConfig[e].color, head_wrap.style.backgroundImage = "url(" + festivalConfig[e].url + ")"
+		}
+
+		function initPayBtnStyle() {
+			keyboard.removeAttribute("disabled"), payBtn.className = "disabled", payBtn.innerText = "支付", is_weixin() && (headimg.className = "weixin", payBtn.className = "weixin", payBtn.innerHTML = "微信<br />支付"), is_alipay() && (headimg.className = "zhifubao", payBtn.className = "zhifubao", payBtn.innerText = "支付宝支付"), is_qq() && (headimg.className = "qq", payBtn.className = "qq", payBtn.innerHTML = "QQ<br />支付"), is_bestpay() && (headimg.className = "bestpay", payBtn.className = "bestpay", payBtn.innerHTML = "翼支付"), (Number(price) || 0) < .01 && (payBtn.className = "disabled")
+		}
+
+		function payAction(e) {
+			return keyboard.getAttribute("disabled") && !pay_btn_status || (Number(price) || 0) < .01 ? 
+			void 0 : 1 == merchantstatus && (Number(price) || 0) > .1 ? 
+			(document.getElementById("dig_content").innerText = "未通过审核的商户体验支付金额不允许超过0.1元", 
+			dialog.setAttribute("close", "false"),
+			void(dialog.style.display = "block")) : (e.innerHTML = "正在<br>支付", e.className = "disabled", keyboard.setAttribute("disabled", "disabled"), auth_status ? 
+			void api.prePay(mchId, payopenid, Number(price), paytype_code, remark_content.innerText, function(e) {
+				console.log(e);
+				if("SUCCESS" != e.retCode) return document.getElementById("dig_content").innerText = e.result_msg || e.return_msg || "网络错误", void(dialog.style.display = "block");
+				if(is_weixin()) api.wxpay(e.payParams.appId, e.payParams.timeStamp, e.payParams.nonceStr, e.payParams.package, e.payParams.signType, e.payParams.paySign, function(t) {
+					
+					return "get_brand_wcpay_request:cancel" == t.err_msg ?
+					void initPayBtnStyle() : 
+					closeWx();
+				}, function(e) {
+					document.getElementById("dig_content").innerText = e.err_msg, dialog.style.display = "block"
+				});
+				else if(is_alipay()) {
+					//alert(JSON.stringify(e));
+					return void api.alipay_old(e.payUrl);
+					//if("payUrl" in e && e.payUrl) 
+					/* api.alipay(e.ali_trade_no, function(t) {
+						return "6001" == t.resultCode ? void initPayBtnStyle() : void api.payNotify(e.out_trade_no, function() {
+							"0" == adstatus ? api.showAd(payopenid, paytype_code, merchantno, terminalno) : AlipayJSBridge.call("closeWebview")
+						}) */
+					/* }, function(e) {
+						document.getElementById("dig_content").innerText = e.memo, dialog.style.display = "block"
+					}) */
+				} else is_qq() ? api.qqpay(e.token_id, e.pubAcc, e.pubAccHint, function(t) {
+					return -11001 == t.resultCode || -1 == t.resultCode ? void initPayBtnStyle() : void api.payNotify(e.out_trade_no, function() {
+						"0" == adstatus ? api.showAd(payopenid, paytype_code, merchantno, terminalno) : history.back()
+					})
+				}, function(e) {
+					document.getElementById("dig_content").innerText = e.retmsg, dialog.style.display = "block"
+				}) : is_bestpay() && ("redirect_uri" in e && e.redirect_uri ? api.alipay_old(e.redirect_uri) : (document.getElementById("dig_content").innerText = "预支付失败，未返回URL", dialog.style.display = "block"))
+			}, function() {
+				document.getElementById("dig_content").innerText = "网络错误！", dialog.style.display = "block"
+			}) : void(pay_btn_status = !0))
+		}
+
+		function ajax(e) {
+			if(e = e || {}, e.type = (e.type || "GET").toUpperCase(), e.dataType = e.dataType || "json", window.XMLHttpRequest) var t = new XMLHttpRequest;
+			else var t = new ActiveXObject("Microsoft.XMLHTTP");
+			t.onreadystatechange = function() {
+				if(4 == t.readyState) {
+					var n = t.status;
+					n >= 200 && 300 > n ? e.success && e.success(JSON.parse(t.responseText), t.responseXML) : e.fail && e.fail(n)
+				}
+			}, "GET" == e.type ? (t.open("GET", e.url + "?" + formatParams(e.data), !0), t.send(null)) : "POST" == e.type && (t.open("POST", e.url, !0), t.setRequestHeader("Content-Type", e.contentType), t.send(e.data))
+		}
+
+		function formatParams(e) {
+			var t = [];
+			for(var n in e) t.push(encodeURIComponent(n) + "=" + encodeURIComponent(e[n]));
+			return t.push(("v=" + Math.random()).replace(".", "")), t.join("&")
+		}
+
+		function accMul(e, t) {
+			var n = 0,
+				a = e.toString(),
+				i = t.toString();
+			try {
+				n += a.split(".")[1].length
+			} catch(r) {}
+			try {
+				n += i.split(".")[1].length
+			} catch(r) {}
+			return Number(a.replace(".", "")) * Number(i.replace(".", "")) / Math.pow(10, n)
+		}
+
+		function closeWx() {
+			function e() {
+				WeixinJSBridge.invoke("closeWindow", {}, function() {})
+			}
+			"undefined" == typeof WeixinJSBridge ? document.addEventListener ? document.addEventListener("WeixinJSBridgeReady", e, !1) : document.attachEvent && (document.attachEvent("WeixinJSBridgeReady", e), document.attachEvent("onWeixinJSBridgeReady", e)) : e()
+		}
+
+		function amount_check(e) {
+			var t = /^\d{1,6}(\.\d{0,2})?$/;
+			return !!t.test(e)
+		}
+
+		function is_weixin() {
+			var e = navigator.userAgent.toLowerCase();
+			return "micromessenger" == e.match(/MicroMessenger/i) ? !0 : !1
+		}
+
+		function is_alipay() {
+			var e = navigator.userAgent.toLowerCase();
+			return "alipayclient" == e.match(/AlipayClient/i) ? !0 : !1
+		}
+
+		function is_qq() {
+			navigator.userAgent.toLowerCase();
+			return navigator.userAgent.match(/\bqq\/([\d\.]+)/i) ? !0 : !1
+		}
+
+		function is_bestpay() {
+			var e = navigator.userAgent.toLowerCase();
+			return "bestpay" == e.match(/Bestpay/i) ? !0 : !1
+		}
+		window.onresize = function() {
+			var e = 320,
+				t = document.documentElement.clientWidth;
+			document.getElementsByTagName("html")[0].style.fontSize = t / e * 62.5 + "%";
+			var n = document.getElementById("headimg");
+			n.style.marginLeft = "-" + n.offsetHeight / 2 + "px"
+		}, window.onresize(), document.body.addEventListener("touchmove", function(e) {
+			e.preventDefault()
+		});
+		var getQueryString = function(e) {
+				var t = new RegExp("(^|&)" + e + "=([^&]*)(&|$)", "i"),
+					n = window.location.search.substr(1).match(t);
+				return null != n ? decodeURIComponent(n[2]) : null
+			},
+			api = {
+				getPrePayData: function(e, t, n, a, i) {
+					httpRequest.get("/wappay/100/pay/geth5payinfo", {
+						code: e,
+						terminalno: t,
+						pay_type: n
+					}, a, i)
+				},
+				prePay: function(t, n, a, i, r, o, d) {
+					var s = {
+						pay_type: i,
+						mchId: t,
+						total_fee: accMul(a, 100),
+						order_body: r || "",
+						open_id: n
+					};
+					httpRequest.post("/prePay.html", s, o, d)
+				},
+				payNotify: function(e, t) {
+					var n = setTimeout(t, 1e3);
+					httpRequest.get("/wappay/100/pay/h5payfrontnotify", {
+						tradeno: e
+					}, function(e) {
+						"01" == e.result_code && (clearTimeout(n), t())
+					}, function() {})
+				},
+				showAd: function(e, t, n, a, i) {
+					var r = httpRequest._server + ":" + httpRequest._port + httpRequest._urlPrefix + "/common/advertise/pay/adurl?auth_code=&uniopenid=" + e + "&pay_type=" + t + "&merchant_no=" + n + "&terminal_no=" + a;
+					return i ? r : void location.replace(r)
+				},
+				reAuthAd: function(e, t, n, a, i) {
+					var r = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + e + "&redirect_uri=" + encodeURIComponent(t + "?uniopenid=&pay_type=" + n + "&merchant_no=" + a + "&terminal_no=" + i) + "&response_type=code&scope=snsapi_base#wechat_redirect";
+					location.replace(r)
+				},
+				wxpay: function(e, t, n, a, i, r, o, d) {
+					function s() {
+						WeixinJSBridge.invoke("getBrandWCPayRequest", {
+							"appId": e,
+							"timeStamp": t,
+							"nonceStr": n,
+							"package": a,
+							"signType": i,
+							"paySign": r
+						}, function(e) {
+							//alert(JSON.stringify(e));
+							"get_brand_wcpay_request:ok" ==JSON.stringify(e) || "get_brand_wcpay_request:cancel" == JSON.stringify(e) ? o(e) : d(e)
+						})
+					}
+					"undefined" == typeof WeixinJSBridge ? document.addEventListener ? document.addEventListener("WeixinJSBridgeReady", s, !1) : document.attachEvent && (document.attachEvent("WeixinJSBridgeReady", s), document.attachEvent("onWeixinJSBridgeReady", s)) : s()
+				},
+				qqpay: function(e, t, n, a, i) {
+					mqq.tenpay.pay({
+						tokenId: e,
+						pubAcc: t,
+						pubAccHint: n
+					}, function(e) {
+						0 == e.resultCode || -11001 == e.resultCode || -1 == e.resultCode ? a(e) : i(e)
+					})
+				},
+				alipay_old: function(e) {
+					//alert(e);
+					var div = document.createElement("div");
+					div.innerHTML = e;
+					document.body.appendChild(div);
+					document.forms[0].submit();
+					//location.replace(e)
+				},
+				alipay: function(e, t, n) {
+					AlipayJSBridge.call("tradePay", {
+						tradeNO: e
+					}, function(e) {
+						"9000" == e.resultCode || "6001" == e.resultCode ? t(e) : n(e)
+					})
+				}
+			},
+
+			//开始进行初始化
+			head_wrap = document.getElementById("head_wrap");
+		head_wrap.style.height = .31 * head_wrap.clientWidth + "px";
+		var festivalConfig = [{
+			color: "#fff",
+			url: "/images/festival1.png"
+		}, {
+			color: "#333",
+			url: "/images/festival2.jpg"
+		}];
+		is_qq() && (document.getElementById("moneys").style.lineHeight = "4rem", document.getElementById("cursor").style.top = "6px"), festivalRandom();
+		var mchId = getQueryString("mchId"),
+			openId = getQueryString("openId"),
+			auth_status = !1,
+			pay_btn_status = !1,
+			headimg = document.getElementById("headimg"),
+			payBtn = document.getElementById("pay"),
+			dialog = document.getElementById("dialog"),
+			keyboard = document.getElementById("keyboard"),
+			remark = document.getElementById("remark"),
+			remark_win = document.getElementById("remark_win"),
+			remark_content = document.getElementById("remark_content"),
+			remark_btn = document.getElementById("remark_btn"),
+			remark_input = document.getElementById("remark_input"),
+			remark_tip = document.getElementById("remark_tip");
+		if(is_alipay() ? (code = getQueryString("auth_code"), paytype_code = "ALIPAY_WAP") :
+			is_weixin() ? (code = getQueryString("code"), paytype_code = "WX_JSAPI") :
+			is_qq() ? paytype_code = "060" :
+			is_bestpay() && (paytype_code = "BestPay"),
+			initPayBtnStyle(), is_qq()) {
+				var script = document.createElement("script");
+				script.setAttribute("type", "text/javascript"), script.setAttribute("src", "http://pub.idqqimg.com/qqmobile/qqapi.js?_bid=152");
+				var heads = document.getElementsByTagName("head");
+				heads.length ? heads[0].appendChild(script) : document.documentElement.appendChild(script)
+			}
+		var httpRequest = {
+			_server: "http:///m.hengaikj.com",
+			_port: 80,
+			_urlPrefix: "/web/pay",
+			_dataType: "json",
+			_contentType: "application/json; charset=UTF-8",
+			_timeout: 0,
+			_request: function(e, t, n, a, i) {
+				ajax({
+					url: this._server + ":" + this._port + this._urlPrefix + e,
+					dataType: this._dataType,
+					contentType: this._contentType,
+					type: i || "GET",
+					data: t,
+					timeout: this._timeout,
+					success: n,
+					error: a || function() {
+						alert("网络错误！")
+					}
+				})
+			},
+			setServer: function(e) {
+				this._server = e
+			},
+			setPort: function(e) {
+				this._port = e
+			},
+			setUrlPrefix: function(e) {
+				this._urlPrefix = e
+			},
+			setDataType: function(e) {
+				this._dataType = e
+			},
+			setContentType: function(e) {
+				this._contentType = e
+			},
+			post: function(e, t, n, a) {
+				this._request(e, JSON.stringify(t), n, a, "POST")
+			},
+			get: function(e, t, n, a) {
+				this._request(e, t, n, a, "GET")
+			}
+		};
+		//		api.getPrePayData(code, terminalno, paytype_code, function(e) {
+		//			return "01" != e.result_code ? (document.getElementById("dig_content").innerText = e.result_msg || "网络错误", void(dialog.style.display = "block")) : (payopenid = e.payopenid || getQueryString("openid"), terminalno = e.terminalno, merchantno = e.merchantno, merchanttype = e.merchanttype, merchantstatus = e.merchantstatus, payopenid || is_qq() || is_alipay() || is_bestpay() ? (auth_status = !0, void(pay_btn_status && payAction(payBtn))) : is_weixin() || is_qq() || is_alipay() || is_bestpay() ? (keyboard.setAttribute("disabled", "disabled"), document.getElementById("dig_content").innerText = "授权失败", void(dialog.style.display = "block")) : (keyboard.setAttribute("disabled", "disabled"), document.getElementById("dig_content").innerText = "请使用微信或支付宝等客户端扫码支付", void(dialog.style.display = "block")))
+		//		}, function() {
+		//			document.getElementById("dig_content").innerText = "网络错误", dialog.style.display = "block"
+		//		}), 
+		(payopenid = getQueryString("openId"),
+			//alert(is_weixin()),
+			//		terminalno = e.terminalno, 
+			//		merchantno = e.merchantno, 
+			//		merchanttype = e.merchanttype, 
+			merchantstatus =!1, 
+			payopenid || is_qq() || is_alipay() || is_bestpay() ?
+			(auth_status = !0, void(pay_btn_status && payAction(payBtn))) : 
+			is_weixin() || is_qq() || is_alipay() || is_bestpay() ? 
+			(keyboard.setAttribute("disabled", "disabled"),
+				document.getElementById("dig_content").innerText = "授权失败",
+				void(dialog.style.display = "block")) : (keyboard.setAttribute("disabled", "disabled"),
+				document.getElementById("dig_content").innerText = "请使用微信或支付宝等客户端扫码支付",
+				void(dialog.style.display = "block")));
+		document.getElementById("remark").addEventListener("touchend", function(e) {
+			e.preventDefault(), document.body.style.height = window.innerHeight + "px", remark_input.innerText = remark_content.innerText, remark_win.style.display = "block", remark_input.focus(), remark_tip.innerText = "最多输入30个字！", remark_tip.style.color = "#666"
+		}), document.getElementById("remark_mask").addEventListener("touchend", function(e) {
+			e.preventDefault(), remark_input.blur()
+		}), document.getElementById("remark_confirm").addEventListener("touchend", function(e) {
+			e.preventDefault(), remark_input.innerText.length > 30 || (remark_content.innerText = remark_input.innerText.replace(/\n/g, ""), remark_btn.innerText = remark_content.innerText ? " 修改" : "添加备注", remark_win.style.display = "none", remark_input.blur())
+		}), remark_input.addEventListener("input", function() {
+			remark_tip.style.color = this.innerText.length > 30 ? "#f00" : "#666", /&|\|/.test(this.innerText) && (this.innerText = this.innerText.replace("&", ""))
+		}), document.getElementById("remark_cancel").addEventListener("touchend", function(e) {
+			e.preventDefault(), remark_win.style.display = "none", remark_input.blur()
+		}), document.getElementById("confirm_btn").addEventListener("touchstart", function() {
+			dialog.style.display = "none", document.getElementById("dig_content").innerText = "暂未开通，请选择其它支付方式", "false" != dialog.getAttribute("close") ? (closeWx(), history.back()) : dialog.removeAttribute("close")
+		});
+		var price = document.getElementById("price").innerText;
+		keyboard.addEventListener("touchstart", function(e) {
+			e.preventDefault(), this.getAttribute("disabled") || (e.target.style.backgroundColor = "#C9C9C9", "0" == e.target.innerText && (e.target.nextElementSibling.style.backgroundColor = "#C9C9C9"), "zero" == e.target.id && (e.target.previousElementSibling.style.backgroundColor = "#C9C9C9"), ("number" == e.target.className || "point" == e.target.id || "zero" == e.target.id) && ("0" == price && "point" != e.target.id ? price = e.target.innerText || "0" : price += e.target.innerText || "0", amount_check(price) ? document.getElementById("price").innerText = price : price = document.getElementById("price").innerText), "del" == e.target.id && (price = price.substring(0, price.length - 1), document.getElementById("price").innerText = price), initPayBtnStyle(), "pay" == e.target.id && payAction(e.target))
+		}), keyboard.addEventListener("touchend", function(e) {
+			e.preventDefault(), e.target.style.backgroundColor = "", "0" == e.target.innerText && (e.target.nextElementSibling.style.backgroundColor = ""), "zero" == e.target.id && (e.target.previousElementSibling.style.backgroundColor = "")
+		}), Date.prototype.Format = function(e) {
+			var t = {
+				"M+": this.getMonth() + 1,
+				"d+": this.getDate(),
+				"h+": this.getHours(),
+				"m+": this.getMinutes(),
+				"s+": this.getSeconds(),
+				"q+": Math.floor((this.getMonth() + 3) / 3),
+				S: this.getMilliseconds()
+			};
+			/(y+)/.test(e) && (e = e.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length)));
+			for(var n in t) new RegExp("(" + n + ")").test(e) && (e = e.replace(RegExp.$1, 1 == RegExp.$1.length ? t[n] : ("00" + t[n]).substr(("" + t[n]).length)));
+			return e
+		};
+	</script>
+	<script></script>
+
+</html>

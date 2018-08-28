@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../plugins/layui/css/layui.css" media="all" />
+	</head>
+	<body style="overflow-y: scroll;">
+		<div style="margin:15px;">
+			<blockquote class="layui-elem-quote layui-text">
+				进行商品分类的添加、编辑和删除。
+				<button class="layui-btn layui-btn-primary" id="goodsAddBtn">分类添加</button>
+				<button class="layui-btn layui-btn-primary">分类导入</button>
+			</blockquote>
+			<table class="layui-table" lay-data="{url:'/admin/good/category/listData',cellMinWidth: 80, page:true, id:'idTest'}" lay-filter="categroyList">
+				<thead>
+					<tr>
+						<th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+						<th lay-data="{field:'category_id', width:80, sort: true, fixed: true}">ID</th>
+						<th lay-data="{field:'category_name'}">分类名称</th>
+						<th lay-data="{field:'parent_id'}">上级分类</th>
+						<th lay-data="{field:'full_name'}">分类全称</th>
+						<th lay-data="{fixed: 'right',  align:'center', toolbar: '#haToolBtn'}">操作</th>
+					</tr>
+				</thead>
+			</table>
+
+			<script type="text/html" id="haToolBtn">
+				<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+				<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+			</script>
+		</div>
+		<script type="text/javascript" src="../../plugins/layui/layui.js"></script>
+		<script>
+			layui.use(['table', 'layer', 'form'], function() {
+				var table = layui.table;
+				var form = layui.form;
+				//监听表格复选框选择
+				table.on('checkbox(categroyList)', function(obj) {
+					console.log(obj)
+				});
+
+				//监听工具条
+				table.on('tool(categroyList)', function(obj) {
+					var data = obj.data;
+					console.log(data);
+					if(obj.event === 'del') {
+						layer.confirm('真的要删除' + data.category_name + '?',{icon: 3, title:'删除提示'}, function(index) {
+							obj.del();
+							alert(data.category_name);
+							layer.close(index);
+						});
+					} else if(obj.event === 'edit') {
+						layer.alert('编辑行：<br>' + JSON.stringify(data))
+					}
+				});
+
+				var $ = layui.$,
+					active = {
+						getCheckData: function() { //获取选中数据
+							var checkStatus = table.checkStatus('idTest'),
+								data = checkStatus.data;
+							layer.alert(JSON.stringify(data));
+						},
+						getCheckLength: function() { //获取选中数目
+							var checkStatus = table.checkStatus('idTest'),
+								data = checkStatus.data;
+							layer.msg('选中了：' + data.length + ' 个');
+						},
+						isAll: function() { //验证是否全选
+							var checkStatus = table.checkStatus('idTest');
+							layer.msg(checkStatus.isAll ? '全选' : '未全选')
+						}
+					};
+
+				$('.categroyList .layui-btn').on('click', function() {
+					var type = $(this).data('type');
+					active[type] ? active[type].call(this) : '';
+				});
+				$("#goodsAddBtn").on('click', function() {
+					var index = layer.open({
+						type: 2,
+						title: '商品添加',
+						content: '/admin/good/add' //iframe的url
+					});
+					layer.full(index);
+				});
+
+			});
+		</script>
+	</body>
+</html>

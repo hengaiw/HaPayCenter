@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hengaiw.model.dao.mapper.HaBillMapper">
+  <resultMap id="BaseResultMap" type="com.hengaiw.model.dao.model.HaBill">
+    <id column="bill_id" jdbcType="INTEGER" property="bill_id" />
+    <result column="bill_date" jdbcType="VARCHAR" property="bill_date" />
+    <result column="bill_sn" jdbcType="VARCHAR" property="bill_sn" />
+    <result column="channel_id" jdbcType="INTEGER" property="channel_id" />
+    <result column="product_id" jdbcType="INTEGER" property="product_id" />
+    <result column="order_num" jdbcType="INTEGER" property="order_num" />
+    <result column="order_money" jdbcType="BIGINT" property="order_money" />
+    <result column="channel_order_num" jdbcType="INTEGER" property="channel_order_num" />
+    <result column="channel_order_money" jdbcType="BIGINT" property="channel_order_money" />
+    <result column="error_num" jdbcType="INTEGER" property="error_num" />
+    <result column="error_money" jdbcType="BIGINT" property="error_money" />
+    <result column="bill_status" jdbcType="TINYINT" property="bill_status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    bill_id, bill_date, bill_sn, channel_id, product_id, order_num, order_money, channel_order_num, 
+    channel_order_money, error_num, error_money, bill_status, create_time
+  </sql>
+  <select id="selectByExample" parameterType="com.hengaiw.model.dao.model.HaBillExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ha_bill
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ha_bill
+    where bill_id = #{bill_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ha_bill
+    where bill_id = #{bill_id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hengaiw.model.dao.model.HaBillExample">
+    delete from ha_bill
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hengaiw.model.dao.model.HaBill">
+    <selectKey keyProperty="bill_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ha_bill (bill_date, bill_sn, channel_id, 
+      product_id, order_num, order_money, 
+      channel_order_num, channel_order_money, 
+      error_num, error_money, bill_status, 
+      create_time)
+    values (#{bill_date,jdbcType=VARCHAR}, #{bill_sn,jdbcType=VARCHAR}, #{channel_id,jdbcType=INTEGER}, 
+      #{product_id,jdbcType=INTEGER}, #{order_num,jdbcType=INTEGER}, #{order_money,jdbcType=BIGINT}, 
+      #{channel_order_num,jdbcType=INTEGER}, #{channel_order_money,jdbcType=BIGINT}, 
+      #{error_num,jdbcType=INTEGER}, #{error_money,jdbcType=BIGINT}, #{bill_status,jdbcType=TINYINT}, 
+      #{create_time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hengaiw.model.dao.model.HaBill">
+    <selectKey keyProperty="bill_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ha_bill
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bill_date != null">
+        bill_date,
+      </if>
+      <if test="bill_sn != null">
+        bill_sn,
+      </if>
+      <if test="channel_id != null">
+        channel_id,
+      </if>
+      <if test="product_id != null">
+        product_id,
+      </if>
+      <if test="order_num != null">
+        order_num,
+      </if>
+      <if test="order_money != null">
+        order_money,
+      </if>
+      <if test="channel_order_num != null">
+        channel_order_num,
+      </if>
+      <if test="channel_order_money != null">
+        channel_order_money,
+      </if>
+      <if test="error_num != null">
+        error_num,
+      </if>
+      <if test="error_money != null">
+        error_money,
+      </if>
+      <if test="bill_status != null">
+        bill_status,
+      </if>
+      <if test="create_time != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bill_date != null">
+        #{bill_date,jdbcType=VARCHAR},
+      </if>
+      <if test="bill_sn != null">
+        #{bill_sn,jdbcType=VARCHAR},
+      </if>
+      <if test="channel_id != null">
+        #{channel_id,jdbcType=INTEGER},
+      </if>
+      <if test="product_id != null">
+        #{product_id,jdbcType=INTEGER},
+      </if>
+      <if test="order_num != null">
+        #{order_num,jdbcType=INTEGER},
+      </if>
+      <if test="order_money != null">
+        #{order_money,jdbcType=BIGINT},
+      </if>
+      <if test="channel_order_num != null">
+        #{channel_order_num,jdbcType=INTEGER},
+      </if>
+      <if test="channel_order_money != null">
+        #{channel_order_money,jdbcType=BIGINT},
+      </if>
+      <if test="error_num != null">
+        #{error_num,jdbcType=INTEGER},
+      </if>
+      <if test="error_money != null">
+        #{error_money,jdbcType=BIGINT},
+      </if>
+      <if test="bill_status != null">
+        #{bill_status,jdbcType=TINYINT},
+      </if>
+      <if test="create_time != null">
+        #{create_time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hengaiw.model.dao.model.HaBillExample" resultType="java.lang.Long">
+    select count(*) from ha_bill
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ha_bill
+    <set>
+      <if test="record.bill_id != null">
+        bill_id = #{record.bill_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.bill_date != null">
+        bill_date = #{record.bill_date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bill_sn != null">
+        bill_sn = #{record.bill_sn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.channel_id != null">
+        channel_id = #{record.channel_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.product_id != null">
+        product_id = #{record.product_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.order_num != null">
+        order_num = #{record.order_num,jdbcType=INTEGER},
+      </if>
+      <if test="record.order_money != null">
+        order_money = #{record.order_money,jdbcType=BIGINT},
+      </if>
+      <if test="record.channel_order_num != null">
+        channel_order_num = #{record.channel_order_num,jdbcType=INTEGER},
+      </if>
+      <if test="record.channel_order_money != null">
+        channel_order_money = #{record.channel_order_money,jdbcType=BIGINT},
+      </if>
+      <if test="record.error_num != null">
+        error_num = #{record.error_num,jdbcType=INTEGER},
+      </if>
+      <if test="record.error_money != null">
+        error_money = #{record.error_money,jdbcType=BIGINT},
+      </if>
+      <if test="record.bill_status != null">
+        bill_status = #{record.bill_status,jdbcType=TINYINT},
+      </if>
+      <if test="record.create_time != null">
+        create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ha_bill
+    set bill_id = #{record.bill_id,jdbcType=INTEGER},
+      bill_date = #{record.bill_date,jdbcType=VARCHAR},
+      bill_sn = #{record.bill_sn,jdbcType=VARCHAR},
+      channel_id = #{record.channel_id,jdbcType=INTEGER},
+      product_id = #{record.product_id,jdbcType=INTEGER},
+      order_num = #{record.order_num,jdbcType=INTEGER},
+      order_money = #{record.order_money,jdbcType=BIGINT},
+      channel_order_num = #{record.channel_order_num,jdbcType=INTEGER},
+      channel_order_money = #{record.channel_order_money,jdbcType=BIGINT},
+      error_num = #{record.error_num,jdbcType=INTEGER},
+      error_money = #{record.error_money,jdbcType=BIGINT},
+      bill_status = #{record.bill_status,jdbcType=TINYINT},
+      create_time = #{record.create_time,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hengaiw.model.dao.model.HaBill">
+    update ha_bill
+    <set>
+      <if test="bill_date != null">
+        bill_date = #{bill_date,jdbcType=VARCHAR},
+      </if>
+      <if test="bill_sn != null">
+        bill_sn = #{bill_sn,jdbcType=VARCHAR},
+      </if>
+      <if test="channel_id != null">
+        channel_id = #{channel_id,jdbcType=INTEGER},
+      </if>
+      <if test="product_id != null">
+        product_id = #{product_id,jdbcType=INTEGER},
+      </if>
+      <if test="order_num != null">
+        order_num = #{order_num,jdbcType=INTEGER},
+      </if>
+      <if test="order_money != null">
+        order_money = #{order_money,jdbcType=BIGINT},
+      </if>
+      <if test="channel_order_num != null">
+        channel_order_num = #{channel_order_num,jdbcType=INTEGER},
+      </if>
+      <if test="channel_order_money != null">
+        channel_order_money = #{channel_order_money,jdbcType=BIGINT},
+      </if>
+      <if test="error_num != null">
+        error_num = #{error_num,jdbcType=INTEGER},
+      </if>
+      <if test="error_money != null">
+        error_money = #{error_money,jdbcType=BIGINT},
+      </if>
+      <if test="bill_status != null">
+        bill_status = #{bill_status,jdbcType=TINYINT},
+      </if>
+      <if test="create_time != null">
+        create_time = #{create_time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where bill_id = #{bill_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hengaiw.model.dao.model.HaBill">
+    update ha_bill
+    set bill_date = #{bill_date,jdbcType=VARCHAR},
+      bill_sn = #{bill_sn,jdbcType=VARCHAR},
+      channel_id = #{channel_id,jdbcType=INTEGER},
+      product_id = #{product_id,jdbcType=INTEGER},
+      order_num = #{order_num,jdbcType=INTEGER},
+      order_money = #{order_money,jdbcType=BIGINT},
+      channel_order_num = #{channel_order_num,jdbcType=INTEGER},
+      channel_order_money = #{channel_order_money,jdbcType=BIGINT},
+      error_num = #{error_num,jdbcType=INTEGER},
+      error_money = #{error_money,jdbcType=BIGINT},
+      bill_status = #{bill_status,jdbcType=TINYINT},
+      create_time = #{create_time,jdbcType=TIMESTAMP}
+    where bill_id = #{bill_id,jdbcType=INTEGER}
+  </update>
+</mapper>

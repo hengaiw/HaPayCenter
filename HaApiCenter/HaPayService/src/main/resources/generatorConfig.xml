@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <!-- 配置文件 -->
+    <properties resource="generator.properties"></properties>
+
+    <!-- 驱动包 -->
+    <classPathEntry location="${classPath}" />
+
+    <context id="MysqlContext" targetRuntime="MyBatis3" defaultModelType="flat">
+
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 由于beginningDelimiter和endingDelimiter的默认值为双引号(")，在Mysql中不能这么写，所以还要将这两个默认值改为`  -->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <property name="useActualColumnNames" value="false" />
+
+     
+        <!-- 为生成的Java模型类添加序列化接口，并生成serialVersionUID字段 -->
+        <plugin type="com.hengaiw.plugin.SerializablePlugin">
+            <property name="suppressJavaInterface" value="false"/>
+        </plugin>
+
+        <!-- 生成一个新的selectByExample方法，这个方法可以接收offset和limit参数，主要用来实现分页 -->
+        <plugin type="com.hengaiw.plugin.PaginationPlugin"></plugin>
+
+        <!-- Java模型生成equals和hashcode方法 -->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin>
+
+        <!-- 生成的代码去掉注释 -->
+        <commentGenerator type="com.hengaiw.plugin.CommentGenerator">
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <!-- 数据库连接 -->
+        <jdbcConnection driverClass="${generator.jdbc.driver}"
+                        connectionURL="${generator.jdbc.url}"
+                        userId="${generator.jdbc.username}"
+                        password="${generator.jdbc.password}"/>
+
+        <!-- model生成 -->
+        <javaModelGenerator targetPackage="com.hengaiw.model.dao.model" targetProject="HaPayService/src/main/java"/>
+
+        <!-- MapperXML生成 -->
+        <sqlMapGenerator targetPackage="com.hengaiw.model.dao.mapper" targetProject="HaPayService/src/main/resources"/>
+
+        <!-- Mapper接口生成 -->
+        <javaClientGenerator targetPackage="com.hengaiw.model.dao.mapper" targetProject="HaPayService/src/main/java" type="XMLMAPPER"/>
+
+        <!-- 需要映射的表 -->
+        <table tableName="ha_admin" domainObjectName="HaAdmin">
+        <property name="useActualColumnNames" value="true" />
+        <generatedKey column="admin_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="ha_admin_log" domainObjectName="HaAdminLog">
+        <property name="useActualColumnNames" value="true" />
+        <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="ha_agent" domainObjectName="HaAgent">
+        <property name="useActualColumnNames" value="true" />
+        <generatedKey column="agent_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="ha_agent_product" domainObjectName="HaAgentProduct">
+        <property name="useActualColumnNames" value="true" />
+        <generatedKey column="agent_product_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="ha_bill" domainObjectName="HaBill">
+        <property name="useActualColumnNames" value="true" />
+        <generatedKey column="bill_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="ha_bill_error" domainObjectName="HaBillError">
+        <property name="useActualColumnNames" value="true" />
+        <generatedKey column="bill_error_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="ha_channel" domainObjectName="HaChannel">
+        <property name="useActualColumnNames" value="true" />
+        <generatedKey column="channel_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="ha_gadmin" domainObjectName="HaGadmin">
+        <property name="useActualColumnNames" value="true" />
+        <generatedKey column="gid" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="ha_lock" domainObjectName="HaLock">
+        <property name="useActualColumnNames" value="true" />
+        <generatedKey column="pid" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="ha_merchant" domainObjectName="HaMerchant">
+        <property name="useActualColumnNames" value="true" />
+        <generatedKey column="merchat_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="ha_merchant_product" domainObjectName="HaMerchantProduct">
+        <property name="useActualColumnNames" value="true" />
+        <generatedKey column="merchat_product_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="ha_pay_order" domainObjectName="HaPayOrder">
+        <property name="useActualColumnNames" value="true" />
+        <generatedKey column="pay_order_id" sqlStatement="MySql" identity="true"/>
+        </table>
+         <table tableName="ha_product" domainObjectName="HaProduct">
+        <property name="useActualColumnNames" value="true" />
+        <generatedKey column="product_id" sqlStatement="MySql" identity="true"/>
+        </table>
+         <table tableName="ha_trade_type" domainObjectName="HaTradeType">
+        <property name="useActualColumnNames" value="true" />
+        <generatedKey column="trade_type_id" sqlStatement="MySql" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>

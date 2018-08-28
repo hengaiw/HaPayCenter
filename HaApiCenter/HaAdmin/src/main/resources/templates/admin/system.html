@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>恒爱科技--后台运营系统</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+		<link rel="stylesheet" href="../../plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="../../css/global.css" media="all" />
+	</head>
+
+	<body class="layui-layout-body">
+		<div class="layui-layout layui-layout-admin">
+			<#include "/public/header.html"/>
+			<#include "/admin/system/menu.html"/>
+			<div class="layui-body" style="bottom: 0; border-left: solid 2px #1AA094;" id="main-body">
+				<div class="layui-tab admin-nav-card layui-tab-brief" lay-filter="main-tab" lay-allowclose="true">
+					<ul class="layui-tab-title">
+						
+					</ul>
+					
+					<div class="layui-tab-content" style="min-height:150px; padding: 5px 0px 0px;">
+						
+					</div>
+				</div>
+			</div>
+
+		<#include "/public/footer.html"/>
+		</div>
+		<script type="text/javascript" src="../../plugins/layui/layui.js"></script>
+		<script type="text/javascript" src="../../plugins/echarts/echarts.js"></script>
+
+		<script>
+			layui.use('element', function() {
+				var $ = layui.jquery,
+					element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+					element.tabAdd('main-tab', {
+						title: '系统参数',//用于演示
+						content: '<iframe src="/admin/system/setting"></iframe>',
+						id: 123 //实际使用一般是规定好的id，这里以时间戳模拟下
+					});
+					element.tabChange('main-tab', 123);
+					//iframe自适应
+				    $(window).on('resize', function () {
+				        var $content = $('.admin-nav-card .layui-tab-content');
+				        $content.height($(this).height() - 147);
+				        $content.find('iframe').each(function () {
+				            $(this).height($content.height());
+				        });
+				    }).resize();
+
+
+			});
+		</script>
+	</body>
+
+</html>

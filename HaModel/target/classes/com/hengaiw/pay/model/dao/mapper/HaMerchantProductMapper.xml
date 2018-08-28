@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hengaiw.pay.model.dao.mapper.HaMerchantProductMapper">
+  <resultMap id="BaseResultMap" type="com.hengaiw.pay.model.dao.model.HaMerchantProduct">
+    <id column="merchant_product_id" jdbcType="INTEGER" property="merchant_product_id" />
+    <result column="merchant_id" jdbcType="INTEGER" property="merchant_id" />
+    <result column="merchant_no" jdbcType="VARCHAR" property="merchant_no" />
+    <result column="product_id" jdbcType="INTEGER" property="product_id" />
+    <result column="product_type" jdbcType="CHAR" property="product_type" />
+    <result column="trade_type_nickname" jdbcType="VARCHAR" property="trade_type_nickname" />
+    <result column="merchant_day_limit" jdbcType="BIGINT" property="merchant_day_limit" />
+    <result column="merchant_day_use" jdbcType="BIGINT" property="merchant_day_use" />
+    <result column="merchant_order_limit" jdbcType="BIGINT" property="merchant_order_limit" />
+    <result column="merchant_rate" jdbcType="INTEGER" property="merchant_rate" />
+    <result column="product_status" jdbcType="BIT" property="product_status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hengaiw.pay.model.dao.model.HaMerchantProduct">
+    <result column="merchant_product_params" jdbcType="LONGVARCHAR" property="merchant_product_params" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    merchant_product_id, merchant_id, merchant_no, product_id, product_type, trade_type_nickname, 
+    merchant_day_limit, merchant_day_use, merchant_order_limit, merchant_rate, product_status, 
+    create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    merchant_product_params
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.hengaiw.pay.model.dao.model.HaMerchantProductExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ha_merchant_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.hengaiw.pay.model.dao.model.HaMerchantProductExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ha_merchant_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ha_merchant_product
+    where merchant_product_id = #{merchant_product_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ha_merchant_product
+    where merchant_product_id = #{merchant_product_id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hengaiw.pay.model.dao.model.HaMerchantProductExample">
+    delete from ha_merchant_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hengaiw.pay.model.dao.model.HaMerchantProduct">
+    insert into ha_merchant_product (merchant_product_id, merchant_id, 
+      merchant_no, product_id, product_type, 
+      trade_type_nickname, merchant_day_limit, 
+      merchant_day_use, merchant_order_limit, merchant_rate, 
+      product_status, create_time, merchant_product_params
+      )
+    values (#{merchant_product_id,jdbcType=INTEGER}, #{merchant_id,jdbcType=INTEGER}, 
+      #{merchant_no,jdbcType=VARCHAR}, #{product_id,jdbcType=INTEGER}, #{product_type,jdbcType=CHAR}, 
+      #{trade_type_nickname,jdbcType=VARCHAR}, #{merchant_day_limit,jdbcType=BIGINT}, 
+      #{merchant_day_use,jdbcType=BIGINT}, #{merchant_order_limit,jdbcType=BIGINT}, #{merchant_rate,jdbcType=INTEGER}, 
+      #{product_status,jdbcType=BIT}, #{create_time,jdbcType=TIMESTAMP}, #{merchant_product_params,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hengaiw.pay.model.dao.model.HaMerchantProduct">
+    insert into ha_merchant_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="merchant_product_id != null">
+        merchant_product_id,
+      </if>
+      <if test="merchant_id != null">
+        merchant_id,
+      </if>
+      <if test="merchant_no != null">
+        merchant_no,
+      </if>
+      <if test="product_id != null">
+        product_id,
+      </if>
+      <if test="product_type != null">
+        product_type,
+      </if>
+      <if test="trade_type_nickname != null">
+        trade_type_nickname,
+      </if>
+      <if test="merchant_day_limit != null">
+        merchant_day_limit,
+      </if>
+      <if test="merchant_day_use != null">
+        merchant_day_use,
+      </if>
+      <if test="merchant_order_limit != null">
+        merchant_order_limit,
+      </if>
+      <if test="merchant_rate != null">
+        merchant_rate,
+      </if>
+      <if test="product_status != null">
+        product_status,
+      </if>
+      <if test="create_time != null">
+        create_time,
+      </if>
+      <if test="merchant_product_params != null">
+        merchant_product_params,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="merchant_product_id != null">
+        #{merchant_product_id,jdbcType=INTEGER},
+      </if>
+      <if test="merchant_id != null">
+        #{merchant_id,jdbcType=INTEGER},
+      </if>
+      <if test="merchant_no != null">
+        #{merchant_no,jdbcType=VARCHAR},
+      </if>
+      <if test="product_id != null">
+        #{product_id,jdbcType=INTEGER},
+      </if>
+      <if test="product_type != null">
+        #{product_type,jdbcType=CHAR},
+      </if>
+      <if test="trade_type_nickname != null">
+        #{trade_type_nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_day_limit != null">
+        #{merchant_day_limit,jdbcType=BIGINT},
+      </if>
+      <if test="merchant_day_use != null">
+        #{merchant_day_use,jdbcType=BIGINT},
+      </if>
+      <if test="merchant_order_limit != null">
+        #{merchant_order_limit,jdbcType=BIGINT},
+      </if>
+      <if test="merchant_rate != null">
+        #{merchant_rate,jdbcType=INTEGER},
+      </if>
+      <if test="product_status != null">
+        #{product_status,jdbcType=BIT},
+      </if>
+      <if test="create_time != null">
+        #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="merchant_product_params != null">
+        #{merchant_product_params,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hengaiw.pay.model.dao.model.HaMerchantProductExample" resultType="java.lang.Long">
+    select count(*) from ha_merchant_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ha_merchant_product
+    <set>
+      <if test="record.merchant_product_id != null">
+        merchant_product_id = #{record.merchant_product_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.merchant_id != null">
+        merchant_id = #{record.merchant_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.merchant_no != null">
+        merchant_no = #{record.merchant_no,jdbcType=VARCHAR},
+      </if>
+      <if test="record.product_id != null">
+        product_id = #{record.product_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.product_type != null">
+        product_type = #{record.product_type,jdbcType=CHAR},
+      </if>
+      <if test="record.trade_type_nickname != null">
+        trade_type_nickname = #{record.trade_type_nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchant_day_limit != null">
+        merchant_day_limit = #{record.merchant_day_limit,jdbcType=BIGINT},
+      </if>
+      <if test="record.merchant_day_use != null">
+        merchant_day_use = #{record.merchant_day_use,jdbcType=BIGINT},
+      </if>
+      <if test="record.merchant_order_limit != null">
+        merchant_order_limit = #{record.merchant_order_limit,jdbcType=BIGINT},
+      </if>
+      <if test="record.merchant_rate != null">
+        merchant_rate = #{record.merchant_rate,jdbcType=INTEGER},
+      </if>
+      <if test="record.product_status != null">
+        product_status = #{record.product_status,jdbcType=BIT},
+      </if>
+      <if test="record.create_time != null">
+        create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.merchant_product_params != null">
+        merchant_product_params = #{record.merchant_product_params,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update ha_merchant_product
+    set merchant_product_id = #{record.merchant_product_id,jdbcType=INTEGER},
+      merchant_id = #{record.merchant_id,jdbcType=INTEGER},
+      merchant_no = #{record.merchant_no,jdbcType=VARCHAR},
+      product_id = #{record.product_id,jdbcType=INTEGER},
+      product_type = #{record.product_type,jdbcType=CHAR},
+      trade_type_nickname = #{record.trade_type_nickname,jdbcType=VARCHAR},
+      merchant_day_limit = #{record.merchant_day_limit,jdbcType=BIGINT},
+      merchant_day_use = #{record.merchant_day_use,jdbcType=BIGINT},
+      merchant_order_limit = #{record.merchant_order_limit,jdbcType=BIGINT},
+      merchant_rate = #{record.merchant_rate,jdbcType=INTEGER},
+      product_status = #{record.product_status,jdbcType=BIT},
+      create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      merchant_product_params = #{record.merchant_product_params,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ha_merchant_product
+    set merchant_product_id = #{record.merchant_product_id,jdbcType=INTEGER},
+      merchant_id = #{record.merchant_id,jdbcType=INTEGER},
+      merchant_no = #{record.merchant_no,jdbcType=VARCHAR},
+      product_id = #{record.product_id,jdbcType=INTEGER},
+      product_type = #{record.product_type,jdbcType=CHAR},
+      trade_type_nickname = #{record.trade_type_nickname,jdbcType=VARCHAR},
+      merchant_day_limit = #{record.merchant_day_limit,jdbcType=BIGINT},
+      merchant_day_use = #{record.merchant_day_use,jdbcType=BIGINT},
+      merchant_order_limit = #{record.merchant_order_limit,jdbcType=BIGINT},
+      merchant_rate = #{record.merchant_rate,jdbcType=INTEGER},
+      product_status = #{record.product_status,jdbcType=BIT},
+      create_time = #{record.create_time,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hengaiw.pay.model.dao.model.HaMerchantProduct">
+    update ha_merchant_product
+    <set>
+      <if test="merchant_id != null">
+        merchant_id = #{merchant_id,jdbcType=INTEGER},
+      </if>
+      <if test="merchant_no != null">
+        merchant_no = #{merchant_no,jdbcType=VARCHAR},
+      </if>
+      <if test="product_id != null">
+        product_id = #{product_id,jdbcType=INTEGER},
+      </if>
+      <if test="product_type != null">
+        product_type = #{product_type,jdbcType=CHAR},
+      </if>
+      <if test="trade_type_nickname != null">
+        trade_type_nickname = #{trade_type_nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="merchant_day_limit != null">
+        merchant_day_limit = #{merchant_day_limit,jdbcType=BIGINT},
+      </if>
+      <if test="merchant_day_use != null">
+        merchant_day_use = #{merchant_day_use,jdbcType=BIGINT},
+      </if>
+      <if test="merchant_order_limit != null">
+        merchant_order_limit = #{merchant_order_limit,jdbcType=BIGINT},
+      </if>
+      <if test="merchant_rate != null">
+        merchant_rate = #{merchant_rate,jdbcType=INTEGER},
+      </if>
+      <if test="product_status != null">
+        product_status = #{product_status,jdbcType=BIT},
+      </if>
+      <if test="create_time != null">
+        create_time = #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="merchant_product_params != null">
+        merchant_product_params = #{merchant_product_params,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where merchant_product_id = #{merchant_product_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hengaiw.pay.model.dao.model.HaMerchantProduct">
+    update ha_merchant_product
+    set merchant_id = #{merchant_id,jdbcType=INTEGER},
+      merchant_no = #{merchant_no,jdbcType=VARCHAR},
+      product_id = #{product_id,jdbcType=INTEGER},
+      product_type = #{product_type,jdbcType=CHAR},
+      trade_type_nickname = #{trade_type_nickname,jdbcType=VARCHAR},
+      merchant_day_limit = #{merchant_day_limit,jdbcType=BIGINT},
+      merchant_day_use = #{merchant_day_use,jdbcType=BIGINT},
+      merchant_order_limit = #{merchant_order_limit,jdbcType=BIGINT},
+      merchant_rate = #{merchant_rate,jdbcType=INTEGER},
+      product_status = #{product_status,jdbcType=BIT},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      merchant_product_params = #{merchant_product_params,jdbcType=LONGVARCHAR}
+    where merchant_product_id = #{merchant_product_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hengaiw.pay.model.dao.model.HaMerchantProduct">
+    update ha_merchant_product
+    set merchant_id = #{merchant_id,jdbcType=INTEGER},
+      merchant_no = #{merchant_no,jdbcType=VARCHAR},
+      product_id = #{product_id,jdbcType=INTEGER},
+      product_type = #{product_type,jdbcType=CHAR},
+      trade_type_nickname = #{trade_type_nickname,jdbcType=VARCHAR},
+      merchant_day_limit = #{merchant_day_limit,jdbcType=BIGINT},
+      merchant_day_use = #{merchant_day_use,jdbcType=BIGINT},
+      merchant_order_limit = #{merchant_order_limit,jdbcType=BIGINT},
+      merchant_rate = #{merchant_rate,jdbcType=INTEGER},
+      product_status = #{product_status,jdbcType=BIT},
+      create_time = #{create_time,jdbcType=TIMESTAMP}
+    where merchant_product_id = #{merchant_product_id,jdbcType=INTEGER}
+  </update>
+</mapper>

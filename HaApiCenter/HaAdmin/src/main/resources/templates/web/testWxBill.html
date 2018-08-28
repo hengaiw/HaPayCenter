@@ -1,0 +1,76 @@
+<#assign base = request.contextPath />
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="fyunli">
+    <base id="base" href="${base}">
+    <title>微信对帐单接口测试</title>
+    <link href="../../layui/css/layui.css" rel="stylesheet">
+</head>
+
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+  <legend>微信对帐单接口测试</legend>
+ </fieldset>
+ <form class="layui-form layui-form-pane" action="" method="post">
+ 	<div class="layui-form-item">
+ 	<div class="layui-inline">
+      <label class="layui-form-label">商户ID(mchId):</label>
+      <div class="layui-input-inline">
+        <input name="mchId" lay-verify="required" placeholder="请输入商户ID" value="20001223" autocomplete="off" class="layui-input" type="text">
+      </div>
+    </div>
+    <div class="layui-inline">
+      <label class="layui-form-label">通道ID(channelId):</label>
+      <div class="layui-input-inline">
+        <input name="channelId" lay-verify="required" placeholder="请输入渠道ID" value="WX_JSAPI" autocomplete="off" class="layui-input" type="text">
+      </div>
+    </div>
+    <div class="layui-inline">
+      <label class="layui-form-label">对帐单日期(bill_date):</label>
+      <div class="layui-input-inline">
+        <input name="bill_date" lay-verify="required" value="20171127" placeholder="请输入对帐单日期" autocomplete="off" class="layui-input" type="text">
+      </div>
+    </div>
+    <div class="layui-inline">
+      <label class="layui-form-label">结帐单类型(bill_type):</label>
+      <div class="layui-input-inline">
+        <input name="bill_type" value="ALL" lay-verify="required" placeholder="结帐单类型" autocomplete="off" class="layui-input" type="text">
+      </div>
+    </div>
+    <div class="layui-inline">
+    	  <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+ </form>
+<p>
+${result}
+</p>
+<footer class="footer">
+   
+</footer>
+
+
+
+<script src="../../layui/layui.js"></script>
+
+<script>
+	
+   layui.use(['form', 'layedit', 'laydate'], function(){
+  var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate;
+  
+ 
+  
+});
+
+</script>
+
+</body>
+</html>

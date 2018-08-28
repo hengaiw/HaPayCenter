@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hengaiw.model.dao.mapper.HaProductMapper">
+  <resultMap id="BaseResultMap" type="com.hengaiw.model.dao.model.HaProduct">
+    <id column="product_id" jdbcType="INTEGER" property="product_id" />
+    <result column="channel_id" jdbcType="INTEGER" property="channel_id" />
+    <result column="trade_type_id" jdbcType="INTEGER" property="trade_type_id" />
+    <result column="product_charging_type" jdbcType="CHAR" property="product_charging_type" />
+    <result column="product_clear_method" jdbcType="CHAR" property="product_clear_method" />
+    <result column="product_clear_type" jdbcType="CHAR" property="product_clear_type" />
+    <result column="product_day_limit" jdbcType="BIGINT" property="product_day_limit" />
+    <result column="product_day_use" jdbcType="BIGINT" property="product_day_use" />
+    <result column="product_order_limit" jdbcType="BIGINT" property="product_order_limit" />
+    <result column="product_rate" jdbcType="INTEGER" property="product_rate" />
+    <result column="product_url" jdbcType="VARCHAR" property="product_url" />
+    <result column="product_status" jdbcType="BIT" property="product_status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hengaiw.model.dao.model.HaProduct">
+    <result column="product_param" jdbcType="LONGVARCHAR" property="product_param" />
+    <result column="product_res" jdbcType="LONGVARCHAR" property="product_res" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    product_id, channel_id, trade_type_id, product_charging_type, product_clear_method, 
+    product_clear_type, product_day_limit, product_day_use, product_order_limit, product_rate, 
+    product_url, product_status, create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    product_param, product_res
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.hengaiw.model.dao.model.HaProductExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ha_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.hengaiw.model.dao.model.HaProductExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ha_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ha_product
+    where product_id = #{product_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ha_product
+    where product_id = #{product_id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hengaiw.model.dao.model.HaProductExample">
+    delete from ha_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hengaiw.model.dao.model.HaProduct">
+    <selectKey keyProperty="product_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ha_product (channel_id, trade_type_id, product_charging_type, 
+      product_clear_method, product_clear_type, product_day_limit, 
+      product_day_use, product_order_limit, product_rate, 
+      product_url, product_status, create_time, 
+      product_param, product_res)
+    values (#{channel_id,jdbcType=INTEGER}, #{trade_type_id,jdbcType=INTEGER}, #{product_charging_type,jdbcType=CHAR}, 
+      #{product_clear_method,jdbcType=CHAR}, #{product_clear_type,jdbcType=CHAR}, #{product_day_limit,jdbcType=BIGINT}, 
+      #{product_day_use,jdbcType=BIGINT}, #{product_order_limit,jdbcType=BIGINT}, #{product_rate,jdbcType=INTEGER}, 
+      #{product_url,jdbcType=VARCHAR}, #{product_status,jdbcType=BIT}, #{create_time,jdbcType=TIMESTAMP}, 
+      #{product_param,jdbcType=LONGVARCHAR}, #{product_res,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hengaiw.model.dao.model.HaProduct">
+    <selectKey keyProperty="product_id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ha_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="channel_id != null">
+        channel_id,
+      </if>
+      <if test="trade_type_id != null">
+        trade_type_id,
+      </if>
+      <if test="product_charging_type != null">
+        product_charging_type,
+      </if>
+      <if test="product_clear_method != null">
+        product_clear_method,
+      </if>
+      <if test="product_clear_type != null">
+        product_clear_type,
+      </if>
+      <if test="product_day_limit != null">
+        product_day_limit,
+      </if>
+      <if test="product_day_use != null">
+        product_day_use,
+      </if>
+      <if test="product_order_limit != null">
+        product_order_limit,
+      </if>
+      <if test="product_rate != null">
+        product_rate,
+      </if>
+      <if test="product_url != null">
+        product_url,
+      </if>
+      <if test="product_status != null">
+        product_status,
+      </if>
+      <if test="create_time != null">
+        create_time,
+      </if>
+      <if test="product_param != null">
+        product_param,
+      </if>
+      <if test="product_res != null">
+        product_res,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="channel_id != null">
+        #{channel_id,jdbcType=INTEGER},
+      </if>
+      <if test="trade_type_id != null">
+        #{trade_type_id,jdbcType=INTEGER},
+      </if>
+      <if test="product_charging_type != null">
+        #{product_charging_type,jdbcType=CHAR},
+      </if>
+      <if test="product_clear_method != null">
+        #{product_clear_method,jdbcType=CHAR},
+      </if>
+      <if test="product_clear_type != null">
+        #{product_clear_type,jdbcType=CHAR},
+      </if>
+      <if test="product_day_limit != null">
+        #{product_day_limit,jdbcType=BIGINT},
+      </if>
+      <if test="product_day_use != null">
+        #{product_day_use,jdbcType=BIGINT},
+      </if>
+      <if test="product_order_limit != null">
+        #{product_order_limit,jdbcType=BIGINT},
+      </if>
+      <if test="product_rate != null">
+        #{product_rate,jdbcType=INTEGER},
+      </if>
+      <if test="product_url != null">
+        #{product_url,jdbcType=VARCHAR},
+      </if>
+      <if test="product_status != null">
+        #{product_status,jdbcType=BIT},
+      </if>
+      <if test="create_time != null">
+        #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="product_param != null">
+        #{product_param,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="product_res != null">
+        #{product_res,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hengaiw.model.dao.model.HaProductExample" resultType="java.lang.Long">
+    select count(*) from ha_product
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ha_product
+    <set>
+      <if test="record.product_id != null">
+        product_id = #{record.product_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.channel_id != null">
+        channel_id = #{record.channel_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.trade_type_id != null">
+        trade_type_id = #{record.trade_type_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.product_charging_type != null">
+        product_charging_type = #{record.product_charging_type,jdbcType=CHAR},
+      </if>
+      <if test="record.product_clear_method != null">
+        product_clear_method = #{record.product_clear_method,jdbcType=CHAR},
+      </if>
+      <if test="record.product_clear_type != null">
+        product_clear_type = #{record.product_clear_type,jdbcType=CHAR},
+      </if>
+      <if test="record.product_day_limit != null">
+        product_day_limit = #{record.product_day_limit,jdbcType=BIGINT},
+      </if>
+      <if test="record.product_day_use != null">
+        product_day_use = #{record.product_day_use,jdbcType=BIGINT},
+      </if>
+      <if test="record.product_order_limit != null">
+        product_order_limit = #{record.product_order_limit,jdbcType=BIGINT},
+      </if>
+      <if test="record.product_rate != null">
+        product_rate = #{record.product_rate,jdbcType=INTEGER},
+      </if>
+      <if test="record.product_url != null">
+        product_url = #{record.product_url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.product_status != null">
+        product_status = #{record.product_status,jdbcType=BIT},
+      </if>
+      <if test="record.create_time != null">
+        create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.product_param != null">
+        product_param = #{record.product_param,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.product_res != null">
+        product_res = #{record.product_res,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update ha_product
+    set product_id = #{record.product_id,jdbcType=INTEGER},
+      channel_id = #{record.channel_id,jdbcType=INTEGER},
+      trade_type_id = #{record.trade_type_id,jdbcType=INTEGER},
+      product_charging_type = #{record.product_charging_type,jdbcType=CHAR},
+      product_clear_method = #{record.product_clear_method,jdbcType=CHAR},
+      product_clear_type = #{record.product_clear_type,jdbcType=CHAR},
+      product_day_limit = #{record.product_day_limit,jdbcType=BIGINT},
+      product_day_use = #{record.product_day_use,jdbcType=BIGINT},
+      product_order_limit = #{record.product_order_limit,jdbcType=BIGINT},
+      product_rate = #{record.product_rate,jdbcType=INTEGER},
+      product_url = #{record.product_url,jdbcType=VARCHAR},
+      product_status = #{record.product_status,jdbcType=BIT},
+      create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      product_param = #{record.product_param,jdbcType=LONGVARCHAR},
+      product_res = #{record.product_res,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ha_product
+    set product_id = #{record.product_id,jdbcType=INTEGER},
+      channel_id = #{record.channel_id,jdbcType=INTEGER},
+      trade_type_id = #{record.trade_type_id,jdbcType=INTEGER},
+      product_charging_type = #{record.product_charging_type,jdbcType=CHAR},
+      product_clear_method = #{record.product_clear_method,jdbcType=CHAR},
+      product_clear_type = #{record.product_clear_type,jdbcType=CHAR},
+      product_day_limit = #{record.product_day_limit,jdbcType=BIGINT},
+      product_day_use = #{record.product_day_use,jdbcType=BIGINT},
+      product_order_limit = #{record.product_order_limit,jdbcType=BIGINT},
+      product_rate = #{record.product_rate,jdbcType=INTEGER},
+      product_url = #{record.product_url,jdbcType=VARCHAR},
+      product_status = #{record.product_status,jdbcType=BIT},
+      create_time = #{record.create_time,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hengaiw.model.dao.model.HaProduct">
+    update ha_product
+    <set>
+      <if test="channel_id != null">
+        channel_id = #{channel_id,jdbcType=INTEGER},
+      </if>
+      <if test="trade_type_id != null">
+        trade_type_id = #{trade_type_id,jdbcType=INTEGER},
+      </if>
+      <if test="product_charging_type != null">
+        product_charging_type = #{product_charging_type,jdbcType=CHAR},
+      </if>
+      <if test="product_clear_method != null">
+        product_clear_method = #{product_clear_method,jdbcType=CHAR},
+      </if>
+      <if test="product_clear_type != null">
+        product_clear_type = #{product_clear_type,jdbcType=CHAR},
+      </if>
+      <if test="product_day_limit != null">
+        product_day_limit = #{product_day_limit,jdbcType=BIGINT},
+      </if>
+      <if test="product_day_use != null">
+        product_day_use = #{product_day_use,jdbcType=BIGINT},
+      </if>
+      <if test="product_order_limit != null">
+        product_order_limit = #{product_order_limit,jdbcType=BIGINT},
+      </if>
+      <if test="product_rate != null">
+        product_rate = #{product_rate,jdbcType=INTEGER},
+      </if>
+      <if test="product_url != null">
+        product_url = #{product_url,jdbcType=VARCHAR},
+      </if>
+      <if test="product_status != null">
+        product_status = #{product_status,jdbcType=BIT},
+      </if>
+      <if test="create_time != null">
+        create_time = #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="product_param != null">
+        product_param = #{product_param,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="product_res != null">
+        product_res = #{product_res,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where product_id = #{product_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hengaiw.model.dao.model.HaProduct">
+    update ha_product
+    set channel_id = #{channel_id,jdbcType=INTEGER},
+      trade_type_id = #{trade_type_id,jdbcType=INTEGER},
+      product_charging_type = #{product_charging_type,jdbcType=CHAR},
+      product_clear_method = #{product_clear_method,jdbcType=CHAR},
+      product_clear_type = #{product_clear_type,jdbcType=CHAR},
+      product_day_limit = #{product_day_limit,jdbcType=BIGINT},
+      product_day_use = #{product_day_use,jdbcType=BIGINT},
+      product_order_limit = #{product_order_limit,jdbcType=BIGINT},
+      product_rate = #{product_rate,jdbcType=INTEGER},
+      product_url = #{product_url,jdbcType=VARCHAR},
+      product_status = #{product_status,jdbcType=BIT},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      product_param = #{product_param,jdbcType=LONGVARCHAR},
+      product_res = #{product_res,jdbcType=LONGVARCHAR}
+    where product_id = #{product_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hengaiw.model.dao.model.HaProduct">
+    update ha_product
+    set channel_id = #{channel_id,jdbcType=INTEGER},
+      trade_type_id = #{trade_type_id,jdbcType=INTEGER},
+      product_charging_type = #{product_charging_type,jdbcType=CHAR},
+      product_clear_method = #{product_clear_method,jdbcType=CHAR},
+      product_clear_type = #{product_clear_type,jdbcType=CHAR},
+      product_day_limit = #{product_day_limit,jdbcType=BIGINT},
+      product_day_use = #{product_day_use,jdbcType=BIGINT},
+      product_order_limit = #{product_order_limit,jdbcType=BIGINT},
+      product_rate = #{product_rate,jdbcType=INTEGER},
+      product_url = #{product_url,jdbcType=VARCHAR},
+      product_status = #{product_status,jdbcType=BIT},
+      create_time = #{create_time,jdbcType=TIMESTAMP}
+    where product_id = #{product_id,jdbcType=INTEGER}
+  </update>
+</mapper>
