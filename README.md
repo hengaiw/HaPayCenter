@@ -1,8 +1,67 @@
-# HaPayCenter
-HaPayCenter基于Spring Cloud架构开发的聚合支付系统（四方支付系统），已对接支付宝的PC支付，WAP支付，PC支付，当面付等。具有代理体系，同一商户下同渠道的轮询机制，支付日限量、次限量等。可直接用于生产环境。交流QQ群469779247
+>恒爱聚合支付中心（HaPayCenter）官方技术交流群：469779247。
+
+***
+
+### 项目介绍
+***
+
+- `HaPayCenter基于Spring Cloud架构开发的聚合支付系统（四方支付系统），已对接支付宝的PC支付，WAP支付，PC支付，当面付等。具有代理体系，同一商户下同渠道的轮询机制，支付日限量、次限量等。可直接用于生产环境。
 
 
-项目启动：
-HaServer > HaConfig > HaPayService > HaApi > HaGateway
-启动命令：
-java -ms64m -mx128m -Xmn64m -Djava.awt.headless=true -XX:MaxPermSize=64m -jar HaPayService.jar >>/dev/null 2>&1 &
+### 版本更新
+***
+
+版本 |日期 |描述
+------- | ------- | -------
+V1.0.0 |2018-08-29 |完成Spring Cloud架构，对接支付宝渠道
+
+
+接下来的开源版本开发计划：
+```html
++ 重点发展spring cloud架构版本；
++ 添加支付宝的退款、转帐等接口
++ 添加微信渠道各接口
+```
+真正开发未必按上面的顺序，大家如有更强烈的开发需求请反馈作者。
+
+### 项目测试
+------------
+项目社区网站建设中！！！！
+
+### 项目结构
+***
+```
+HaCenter
+├── HaApiCenter -- 聚合支付中心
+|    ├── HaAdmin -- 运营管理后台
+|    ├── HaApi -- 接口模块
+|    ├── HaConfig -- 配置中心
+|    ├── HaGateway -- 网关
+|    ├── HaPayService -- 支付服务中心
+|    ├── HaServer -- 服务注册中心
+├── HaModel -- 数据持久层
+├── HaPub -- 公共模块
+├── HaSDK -- 接口测试工程
+```
+
+项目启动顺序：
+```
+HaServer > HaConfig > HaService > HaApi > HaGateway
+```
+
+### 项目部署
+***
+
+作者已成功将项目部署在阿里云主机上，服务器配置为：
+
+| CPU  | 内存 | 操作系统
+|---|---|---
+|1核 | 2 GB | CentOS 6.8 64位
+
+安装的各软件对应的版本为（仅供参考）：
+
+| 软件  | 版本 | 说明
+|---|---|---
+|JDK | 1.8 | 
+|ActiveMQ|  5.11.1 | 高版本也可以，如：5.14.3
+|MySQL | 5.7.17 | 要在5.6以上，否则初始化SQL会报错，除非手动修改建表语句
