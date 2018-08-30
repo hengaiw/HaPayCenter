@@ -86,7 +86,7 @@ public class AlipayTradeController extends BaseValidateController {
 		try {
 			HaPayOrder payOrder = JSON.parseObject(new String(HaBase64.decode(jsonParam)), HaPayOrder.class);
 			HaMerchant merchantInfo = haMerchantService.findByMerchantNo(payOrder.getMerchant_no());
-			HaMerchantProduct merchantProduct = haMerchantProductService.selectByPrimaryKey(payOrder.getProduct_id());
+			HaMerchantProduct merchantProduct = haMerchantProductService.selectByPrimaryKey(payOrder.getMerchant_product_id());
 			String params = merchantProduct.getMerchant_product_params();
 			alipayConfig.init(params);
 			_log.info("{}支付宝参数:{}", logPrefix, JSON.toJSONString(alipayConfig));
@@ -143,7 +143,7 @@ public class AlipayTradeController extends BaseValidateController {
 		try {
 			HaPayOrder payOrder = JSON.parseObject(new String(HaBase64.decode(jsonParam)), HaPayOrder.class);
 			HaMerchant merchantInfo = haMerchantService.findByMerchantNo(payOrder.getMerchant_no());
-			HaMerchantProduct merchantProduct = haMerchantProductService.selectByPrimaryKey(payOrder.getProduct_id());
+			HaMerchantProduct merchantProduct = haMerchantProductService.selectByPrimaryKey(payOrder.getMerchant_product_id());
 			String params = merchantProduct.getMerchant_product_params();
 			alipayConfig.init(params);
 			AlipayClient alipayClient = new DefaultAlipayClient(alipayConfig.getOpenApiDomain(),
@@ -199,7 +199,7 @@ public class AlipayTradeController extends BaseValidateController {
 		try {
 			HaPayOrder payOrder = JSON.parseObject(new String(HaBase64.decode(jsonParam)), HaPayOrder.class);
 			HaMerchant merchantInfo = haMerchantService.findByMerchantNo(payOrder.getMerchant_no());
-			HaMerchantProduct merchantProduct = haMerchantProductService.selectByPrimaryKey(payOrder.getProduct_id());
+			HaMerchantProduct merchantProduct = haMerchantProductService.selectByPrimaryKey(payOrder.getMerchant_product_id());
 			String params = merchantProduct.getMerchant_product_params();
 			alipayConfig.init(params);
 			AlipayClient alipayClient = new DefaultAlipayClient(alipayConfig.getOpenApiDomain(),
@@ -261,7 +261,7 @@ public class AlipayTradeController extends BaseValidateController {
 		try {
 			HaPayOrder payOrder = JSON.parseObject(new String(HaBase64.decode(jsonParam)), HaPayOrder.class);
 			HaMerchant merchantInfo = haMerchantService.findByMerchantNo(payOrder.getMerchant_no());
-			HaMerchantProduct merchantProduct = haMerchantProductService.selectByPrimaryKey(payOrder.getProduct_id());
+			HaMerchantProduct merchantProduct = haMerchantProductService.selectByPrimaryKey(payOrder.getMerchant_product_id());
 			String params = merchantProduct.getMerchant_product_params();
 			alipayConfig.init(params);
 			AlipayTradePayRequestBuilder builder = (AlipayTradePayRequestBuilder) createPayParams(payOrder);
@@ -322,7 +322,7 @@ public class AlipayTradeController extends BaseValidateController {
 		try {
 			HaPayOrder payOrder = JSON.parseObject(new String(HaBase64.decode(jsonParam)), HaPayOrder.class);
 			HaMerchant merchantInfo = haMerchantService.findByMerchantNo(payOrder.getMerchant_no());
-			HaMerchantProduct merchantProduct = haMerchantProductService.selectByPrimaryKey(payOrder.getProduct_id());
+			HaMerchantProduct merchantProduct = haMerchantProductService.selectByPrimaryKey(payOrder.getMerchant_product_id());
 			String params = merchantProduct.getMerchant_product_params();
 			alipayConfig.init(params);
 			AlipayTradePrecreateRequestBuilder builder = (AlipayTradePrecreateRequestBuilder) createPayParams(payOrder);
@@ -384,7 +384,7 @@ public class AlipayTradeController extends BaseValidateController {
 		try {
 			HaPayOrder payOrder = JSON.parseObject(new String(HaBase64.decode(jsonParam)), HaPayOrder.class);
 			HaMerchant merchantInfo = haMerchantService.findByMerchantNo(payOrder.getMerchant_no());
-			HaMerchantProduct merchantProduct = haMerchantProductService.selectByPrimaryKey(payOrder.getProduct_id());
+			HaMerchantProduct merchantProduct = haMerchantProductService.selectByPrimaryKey(payOrder.getMerchant_product_id());
 			String params = merchantProduct.getMerchant_product_params();
 			alipayConfig.init(params);
 			AlipayClient alipayClient = new DefaultAlipayClient(alipayConfig.getOpenApiDomain(),
@@ -461,7 +461,7 @@ public class AlipayTradeController extends BaseValidateController {
 			if (payOrder == null)
 				return HaUtil.makeRetFail(HaUtil.makeReturnMap(HaConstants.RETURN_VALUE_FAIL, "",
 						HaConstants.RETURN_VALUE_FAIL, HaReturnCodeEnum.ORDER_ERR_000001));
-			HaMerchantProduct merchantProduct = haMerchantProductService.selectByPrimaryKey(payOrder.getProduct_id());
+			HaMerchantProduct merchantProduct = haMerchantProductService.selectByPrimaryKey(payOrder.getMerchant_product_id());
 			_log.info("{}查询产品信息:{}", logPrefix, JSON.toJSONString(merchantProduct));
 			if (merchantProduct == null)
 				return HaUtil.makeRetFail(HaUtil.makeReturnMap(HaConstants.RETURN_VALUE_FAIL, "",
