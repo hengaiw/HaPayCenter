@@ -1,4 +1,0 @@
-server:
-  port: 7004
-logging:
-  file: ./logs/HaPayService.log

@@ -57,6 +57,7 @@ public class PayOrderController extends BaseValidateController{
 			order.setMerchant_id(merchantInfo.getMerchant_id());
 			order.setAgent_id(merchantInfo.getAgent_id());
 			order.setProduct_id(product.getProduct_id());
+			order.setMerchant_product_id(merchantProduct.getMerchant_product_id());
 			order.setProduct_type(product.getProduct_type());
 			order.setMerchant_rate(merchantProduct.getMerchant_rate());
 			order.setMerchant_charge((int) ((order.getOrder_amount()*merchantProduct.getMerchant_rate())/Constants.RATEBASE));

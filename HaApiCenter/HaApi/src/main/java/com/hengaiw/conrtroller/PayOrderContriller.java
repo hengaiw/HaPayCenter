@@ -13,6 +13,7 @@ import com.hengaiw.pub.constant.HaReturnCodeEnum;
 import com.hengaiw.pub.utils.HaUtil;
 import com.hengaiw.serviceclient.AlipayTradeServiceClient;
 import com.hengaiw.serviceclient.PayBaseServiceClient;
+import com.hengaiw.serviceclient.WeixinPayServiceClient;
 
 @RestController
 @RequestMapping(value = "/pay/order")
@@ -21,6 +22,8 @@ public class PayOrderContriller extends BaseController{
 	private PayBaseServiceClient payBaseServiceClient;
 	@Autowired
 	private AlipayTradeServiceClient alipayTradeServiceClient;
+	@Autowired
+	private WeixinPayServiceClient weixinPayServiceClient;
 	/**
 	 * 创建订单
 	 * @param params
@@ -67,7 +70,10 @@ public class PayOrderContriller extends BaseController{
 					payRes=alipayTradeServiceClient.doAlipayTradePayReq(order.toJSONString());
 					_log.info("{}当面付返回结果{}", logPrefix,payRes);
 				break;
-	
+				case HaConstants.PAY_CHANNEL_WX_NATIVE:
+					payRes=weixinPayServiceClient.doWeixinPayReq(order.toJSONString());
+					_log.info("{}微信二维码返回结果{}", logPrefix,payRes);
+				break;
 				default:
 					return HaUtil.makeRetFail(HaUtil.makeReturnMap(HaConstants.RETURN_VALUE_FAIL, "",
 							HaConstants.RETURN_VALUE_FAIL, HaReturnCodeEnum.PRO_ERR_000001));

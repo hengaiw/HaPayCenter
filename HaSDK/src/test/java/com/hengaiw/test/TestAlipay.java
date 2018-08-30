@@ -62,8 +62,8 @@ public class TestAlipay {
 	public void testAlipayQr() {
 		String createOrderUrl="https://www.hengaikj.com/api/pay/order/create?";
 		JSONObject paramMap = new JSONObject();
-		paramMap.put("merchant_no", "844df47735689e50847ba6f89e6b78e9"); // 商户ID
-		paramMap.put("trade_type_nickname", "ALIPAY.WAP"); // 调用的产品简称
+		paramMap.put("merchant_no", "844df47735689e50847ba6f89e6b78e8"); // 商户ID
+		paramMap.put("trade_type_nickname", "WX.NATIVE"); // 调用的产品简称
 		paramMap.put("merchant_order_no", "M10092200010"); // 商户订单号
 		paramMap.put("order_amount", 1000); // 支付金额
 		paramMap.put("order_clientIp", "192.168.1.34");//客户IP
@@ -75,7 +75,7 @@ public class TestAlipay {
 		Map<String, Object> extraMap = new HashMap<String, Object>();//产品其他扩展参数
 		Map<String, Object> extendParamsMap = new HashMap<String, Object>();//产品其他扩展参数
 		
-		extraMap.put("operatorId", "ha_operator_id_001");
+		extraMap.put("productId", "133");
 		extraMap.put("storeId", "ha_store_id_001");
 		//extraMap.put("authCode", "286718431944971833");
 		extendParamsMap.put("sysServiceProviderId", "2088100200300400500");

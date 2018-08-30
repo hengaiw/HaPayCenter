@@ -508,6 +508,66 @@ public class HaPayOrderExample implements Serializable {
             return (Criteria) this;
         }
 
+        public Criteria andMerchant_product_idIsNull() {
+            addCriterion("merchant_product_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_product_idIsNotNull() {
+            addCriterion("merchant_product_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_product_idEqualTo(Integer value) {
+            addCriterion("merchant_product_id =", value, "merchant_product_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_product_idNotEqualTo(Integer value) {
+            addCriterion("merchant_product_id <>", value, "merchant_product_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_product_idGreaterThan(Integer value) {
+            addCriterion("merchant_product_id >", value, "merchant_product_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_product_idGreaterThanOrEqualTo(Integer value) {
+            addCriterion("merchant_product_id >=", value, "merchant_product_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_product_idLessThan(Integer value) {
+            addCriterion("merchant_product_id <", value, "merchant_product_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_product_idLessThanOrEqualTo(Integer value) {
+            addCriterion("merchant_product_id <=", value, "merchant_product_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_product_idIn(List<Integer> values) {
+            addCriterion("merchant_product_id in", values, "merchant_product_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_product_idNotIn(List<Integer> values) {
+            addCriterion("merchant_product_id not in", values, "merchant_product_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_product_idBetween(Integer value1, Integer value2) {
+            addCriterion("merchant_product_id between", value1, value2, "merchant_product_id");
+            return (Criteria) this;
+        }
+
+        public Criteria andMerchant_product_idNotBetween(Integer value1, Integer value2) {
+            addCriterion("merchant_product_id not between", value1, value2, "merchant_product_id");
+            return (Criteria) this;
+        }
+
         public Criteria andProduct_typeIsNull() {
             addCriterion("product_type is null");
             return (Criteria) this;

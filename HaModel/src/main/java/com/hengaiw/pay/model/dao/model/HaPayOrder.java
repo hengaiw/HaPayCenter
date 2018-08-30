@@ -47,6 +47,13 @@ public class HaPayOrder implements Serializable {
     private Integer product_id;
 
     /**
+     * 商家产品ID
+     *
+     * @mbg.generated
+     */
+    private Integer merchant_product_id;
+
+    /**
      * 产品分类（PAY为支付类产品，DATA为数据查询类）
      *
      * @mbg.generated
@@ -292,6 +299,14 @@ public class HaPayOrder implements Serializable {
         this.product_id = product_id;
     }
 
+    public Integer getMerchant_product_id() {
+        return merchant_product_id;
+    }
+
+    public void setMerchant_product_id(Integer merchant_product_id) {
+        this.merchant_product_id = merchant_product_id;
+    }
+
     public String getProduct_type() {
         return product_type;
     }
@@ -534,6 +549,7 @@ public class HaPayOrder implements Serializable {
             && (this.getMerchant_no() == null ? other.getMerchant_no() == null : this.getMerchant_no().equals(other.getMerchant_no()))
             && (this.getAgent_id() == null ? other.getAgent_id() == null : this.getAgent_id().equals(other.getAgent_id()))
             && (this.getProduct_id() == null ? other.getProduct_id() == null : this.getProduct_id().equals(other.getProduct_id()))
+            && (this.getMerchant_product_id() == null ? other.getMerchant_product_id() == null : this.getMerchant_product_id().equals(other.getMerchant_product_id()))
             && (this.getProduct_type() == null ? other.getProduct_type() == null : this.getProduct_type().equals(other.getProduct_type()))
             && (this.getTrade_type_nickname() == null ? other.getTrade_type_nickname() == null : this.getTrade_type_nickname().equals(other.getTrade_type_nickname()))
             && (this.getMerchant_rate() == null ? other.getMerchant_rate() == null : this.getMerchant_rate().equals(other.getMerchant_rate()))
@@ -574,6 +590,7 @@ public class HaPayOrder implements Serializable {
         result = prime * result + ((getMerchant_no() == null) ? 0 : getMerchant_no().hashCode());
         result = prime * result + ((getAgent_id() == null) ? 0 : getAgent_id().hashCode());
         result = prime * result + ((getProduct_id() == null) ? 0 : getProduct_id().hashCode());
+        result = prime * result + ((getMerchant_product_id() == null) ? 0 : getMerchant_product_id().hashCode());
         result = prime * result + ((getProduct_type() == null) ? 0 : getProduct_type().hashCode());
         result = prime * result + ((getTrade_type_nickname() == null) ? 0 : getTrade_type_nickname().hashCode());
         result = prime * result + ((getMerchant_rate() == null) ? 0 : getMerchant_rate().hashCode());

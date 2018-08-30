@@ -44,5 +44,12 @@ public class HaConstants {
 		public final static String TRADE_STATUS_SUCCESS = "TRADE_SUCCESS"; // 交易成功
 		public final static String TRADE_STATUS_FINISHED = "TRADE_FINISHED"; // 交易成功且结束
 	}
+	public static class WxConstant {
+		public final static String TRADE_TYPE_APP = "APP"; // APP支付
+		public final static String TRADE_TYPE_JSPAI = "JSAPI"; // 公众号支付或小程序支付
+		public final static String TRADE_TYPE_NATIVE = "NATIVE"; // 原生扫码支付
+		public final static String TRADE_TYPE_MWEB = "MWEB"; // H5支付
+
+	}
 	
 }

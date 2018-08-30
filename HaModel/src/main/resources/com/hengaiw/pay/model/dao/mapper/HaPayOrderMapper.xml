@@ -8,6 +8,7 @@
     <result column="merchant_no" jdbcType="VARCHAR" property="merchant_no" />
     <result column="agent_id" jdbcType="INTEGER" property="agent_id" />
     <result column="product_id" jdbcType="INTEGER" property="product_id" />
+    <result column="merchant_product_id" jdbcType="INTEGER" property="merchant_product_id" />
     <result column="product_type" jdbcType="CHAR" property="product_type" />
     <result column="trade_type_nickname" jdbcType="VARCHAR" property="trade_type_nickname" />
     <result column="merchant_rate" jdbcType="INTEGER" property="merchant_rate" />
@@ -98,11 +99,12 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    pay_order_id, pay_order_sn, merchant_id, merchant_no, agent_id, product_id, product_type, 
-    trade_type_nickname, merchant_rate, merchant_charge, agent_rate, agent_charge, product_rate, 
-    product_charge, merchant_order_no, order_amount, order_currency, order_status, order_clientIp, 
-    order_device, channel_mchid, channel_orderno, err_code, err_msg, notify_url, notify_count, 
-    last_notify_time, expire_time, pay_succ_time, create_time, update_time
+    pay_order_id, pay_order_sn, merchant_id, merchant_no, agent_id, product_id, merchant_product_id, 
+    product_type, trade_type_nickname, merchant_rate, merchant_charge, agent_rate, agent_charge, 
+    product_rate, product_charge, merchant_order_no, order_amount, order_currency, order_status, 
+    order_clientIp, order_device, channel_mchid, channel_orderno, err_code, err_msg, 
+    notify_url, notify_count, last_notify_time, expire_time, pay_succ_time, create_time, 
+    update_time
   </sql>
   <sql id="Blob_Column_List">
     order_subject, order_body, order_extra
@@ -168,29 +170,29 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into ha_pay_order (pay_order_sn, merchant_id, merchant_no, 
-      agent_id, product_id, product_type, 
-      trade_type_nickname, merchant_rate, merchant_charge, 
-      agent_rate, agent_charge, product_rate, 
-      product_charge, merchant_order_no, order_amount, 
-      order_currency, order_status, order_clientIp, 
-      order_device, channel_mchid, channel_orderno, 
-      err_code, err_msg, notify_url, 
-      notify_count, last_notify_time, expire_time, 
-      pay_succ_time, create_time, update_time, 
-      order_subject, order_body, order_extra
-      )
+      agent_id, product_id, merchant_product_id, 
+      product_type, trade_type_nickname, merchant_rate, 
+      merchant_charge, agent_rate, agent_charge, 
+      product_rate, product_charge, merchant_order_no, 
+      order_amount, order_currency, order_status, 
+      order_clientIp, order_device, channel_mchid, 
+      channel_orderno, err_code, err_msg, 
+      notify_url, notify_count, last_notify_time, 
+      expire_time, pay_succ_time, create_time, 
+      update_time, order_subject, order_body, 
+      order_extra)
     values (#{pay_order_sn,jdbcType=VARCHAR}, #{merchant_id,jdbcType=INTEGER}, #{merchant_no,jdbcType=VARCHAR}, 
-      #{agent_id,jdbcType=INTEGER}, #{product_id,jdbcType=INTEGER}, #{product_type,jdbcType=CHAR}, 
-      #{trade_type_nickname,jdbcType=VARCHAR}, #{merchant_rate,jdbcType=INTEGER}, #{merchant_charge,jdbcType=INTEGER}, 
-      #{agent_rate,jdbcType=INTEGER}, #{agent_charge,jdbcType=INTEGER}, #{product_rate,jdbcType=INTEGER}, 
-      #{product_charge,jdbcType=INTEGER}, #{merchant_order_no,jdbcType=VARCHAR}, #{order_amount,jdbcType=BIGINT}, 
-      #{order_currency,jdbcType=VARCHAR}, #{order_status,jdbcType=TINYINT}, #{order_clientIp,jdbcType=VARCHAR}, 
-      #{order_device,jdbcType=VARCHAR}, #{channel_mchid,jdbcType=VARCHAR}, #{channel_orderno,jdbcType=VARCHAR}, 
-      #{err_code,jdbcType=VARCHAR}, #{err_msg,jdbcType=VARCHAR}, #{notify_url,jdbcType=VARCHAR}, 
-      #{notify_count,jdbcType=TINYINT}, #{last_notify_time,jdbcType=BIGINT}, #{expire_time,jdbcType=BIGINT}, 
-      #{pay_succ_time,jdbcType=BIGINT}, #{create_time,jdbcType=TIMESTAMP}, #{update_time,jdbcType=TIMESTAMP}, 
-      #{order_subject,jdbcType=LONGVARCHAR}, #{order_body,jdbcType=LONGVARCHAR}, #{order_extra,jdbcType=LONGVARCHAR}
-      )
+      #{agent_id,jdbcType=INTEGER}, #{product_id,jdbcType=INTEGER}, #{merchant_product_id,jdbcType=INTEGER}, 
+      #{product_type,jdbcType=CHAR}, #{trade_type_nickname,jdbcType=VARCHAR}, #{merchant_rate,jdbcType=INTEGER}, 
+      #{merchant_charge,jdbcType=INTEGER}, #{agent_rate,jdbcType=INTEGER}, #{agent_charge,jdbcType=INTEGER}, 
+      #{product_rate,jdbcType=INTEGER}, #{product_charge,jdbcType=INTEGER}, #{merchant_order_no,jdbcType=VARCHAR}, 
+      #{order_amount,jdbcType=BIGINT}, #{order_currency,jdbcType=VARCHAR}, #{order_status,jdbcType=TINYINT}, 
+      #{order_clientIp,jdbcType=VARCHAR}, #{order_device,jdbcType=VARCHAR}, #{channel_mchid,jdbcType=VARCHAR}, 
+      #{channel_orderno,jdbcType=VARCHAR}, #{err_code,jdbcType=VARCHAR}, #{err_msg,jdbcType=VARCHAR}, 
+      #{notify_url,jdbcType=VARCHAR}, #{notify_count,jdbcType=TINYINT}, #{last_notify_time,jdbcType=BIGINT}, 
+      #{expire_time,jdbcType=BIGINT}, #{pay_succ_time,jdbcType=BIGINT}, #{create_time,jdbcType=TIMESTAMP}, 
+      #{update_time,jdbcType=TIMESTAMP}, #{order_subject,jdbcType=LONGVARCHAR}, #{order_body,jdbcType=LONGVARCHAR}, 
+      #{order_extra,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hengaiw.pay.model.dao.model.HaPayOrder">
     <selectKey keyProperty="pay_order_id" order="AFTER" resultType="java.lang.Long">
@@ -212,6 +214,9 @@
       </if>
       <if test="product_id != null">
         product_id,
+      </if>
+      <if test="merchant_product_id != null">
+        merchant_product_id,
       </if>
       <if test="product_type != null">
         product_type,
@@ -313,6 +318,9 @@
       </if>
       <if test="product_id != null">
         #{product_id,jdbcType=INTEGER},
+      </if>
+      <if test="merchant_product_id != null">
+        #{merchant_product_id,jdbcType=INTEGER},
       </if>
       <if test="product_type != null">
         #{product_type,jdbcType=CHAR},
@@ -427,6 +435,9 @@
       <if test="record.product_id != null">
         product_id = #{record.product_id,jdbcType=INTEGER},
       </if>
+      <if test="record.merchant_product_id != null">
+        merchant_product_id = #{record.merchant_product_id,jdbcType=INTEGER},
+      </if>
       <if test="record.product_type != null">
         product_type = #{record.product_type,jdbcType=CHAR},
       </if>
@@ -524,6 +535,7 @@
       merchant_no = #{record.merchant_no,jdbcType=VARCHAR},
       agent_id = #{record.agent_id,jdbcType=INTEGER},
       product_id = #{record.product_id,jdbcType=INTEGER},
+      merchant_product_id = #{record.merchant_product_id,jdbcType=INTEGER},
       product_type = #{record.product_type,jdbcType=CHAR},
       trade_type_nickname = #{record.trade_type_nickname,jdbcType=VARCHAR},
       merchant_rate = #{record.merchant_rate,jdbcType=INTEGER},
@@ -564,6 +576,7 @@
       merchant_no = #{record.merchant_no,jdbcType=VARCHAR},
       agent_id = #{record.agent_id,jdbcType=INTEGER},
       product_id = #{record.product_id,jdbcType=INTEGER},
+      merchant_product_id = #{record.merchant_product_id,jdbcType=INTEGER},
       product_type = #{record.product_type,jdbcType=CHAR},
       trade_type_nickname = #{record.trade_type_nickname,jdbcType=VARCHAR},
       merchant_rate = #{record.merchant_rate,jdbcType=INTEGER},
@@ -610,6 +623,9 @@
       </if>
       <if test="product_id != null">
         product_id = #{product_id,jdbcType=INTEGER},
+      </if>
+      <if test="merchant_product_id != null">
+        merchant_product_id = #{merchant_product_id,jdbcType=INTEGER},
       </if>
       <if test="product_type != null">
         product_type = #{product_type,jdbcType=CHAR},
@@ -705,6 +721,7 @@
       merchant_no = #{merchant_no,jdbcType=VARCHAR},
       agent_id = #{agent_id,jdbcType=INTEGER},
       product_id = #{product_id,jdbcType=INTEGER},
+      merchant_product_id = #{merchant_product_id,jdbcType=INTEGER},
       product_type = #{product_type,jdbcType=CHAR},
       trade_type_nickname = #{trade_type_nickname,jdbcType=VARCHAR},
       merchant_rate = #{merchant_rate,jdbcType=INTEGER},
@@ -742,6 +759,7 @@
       merchant_no = #{merchant_no,jdbcType=VARCHAR},
       agent_id = #{agent_id,jdbcType=INTEGER},
       product_id = #{product_id,jdbcType=INTEGER},
+      merchant_product_id = #{merchant_product_id,jdbcType=INTEGER},
       product_type = #{product_type,jdbcType=CHAR},
       trade_type_nickname = #{trade_type_nickname,jdbcType=VARCHAR},
       merchant_rate = #{merchant_rate,jdbcType=INTEGER},

@@ -13,6 +13,7 @@ public enum HaReturnCodeEnum {
 	MCH_ERR_000006("000006","商户配额不足"),
 	PRO_ERR_000001("000001","未查找到相关产品信息"),
 	ORDER_ERR_000001("000001","未查找到相关订单信息"),
+	WEIXIN_PAY_ERR_000001("000001","微信预下单失败!!!"),
 	ALIPAY_TRADE_ERR_000001("000001","支付宝预下单失败!!!"),
 	ALIPAY_TRADE_ERROR_000001("000001","商户号不能为空"),
 	ALIPAY_TRADE_ERROR_000002("000002","退款请求号不能为空"),

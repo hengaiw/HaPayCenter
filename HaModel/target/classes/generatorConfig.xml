@@ -51,7 +51,7 @@
         <!-- Mapper接口生成 -->
         <javaClientGenerator targetPackage="com.hengaiw.pay.model.dao.mapper" targetProject="HaModel/src/main/java" type="XMLMAPPER"/>
 
- <!--        需要映射的表
+ 		<!--需要映射的表-->
         <table tableName="ha_admin" domainObjectName="HaAdmin">
         <property name="useActualColumnNames" value="true" />
         <generatedKey column="admin_id" sqlStatement="MySql" identity="true"/>
@@ -115,7 +115,7 @@
         <table tableName="ha_merchant_notify" domainObjectName="HaMerchantNotify">
         <property name="useActualColumnNames" value="true" />
         <generatedKey column="merchant_notify_id" sqlStatement="MySql" identity="true"/>
-        </table> -->
+        </table> 
         <table tableName="ha_query_order" domainObjectName="HaQueryOrder">
         <property name="useActualColumnNames" value="true" />
         <generatedKey column="query_order_id" sqlStatement="MySql" identity="true"/>

@@ -89,6 +89,9 @@ public class HaMerchantProductServiceImpl implements HaMerchantProductService{
 		if (record != null) {
 			if(record.getMerchant_id()!=null && record.getMerchant_id()>0) criteria.andMerchant_idEqualTo(record.getMerchant_id());
 			if(record.getProduct_id()!=null && record.getProduct_id()>0) criteria.andProduct_idEqualTo(record.getProduct_id());
+			if(record.getMerchant_no()!=null && record.getMerchant_no()!="") criteria.andMerchant_noEqualTo(record.getMerchant_no());
+			if(record.getTrade_type_nickname()!=null && record.getTrade_type_nickname()!="") criteria.andTrade_type_nicknameEqualTo(record.getTrade_type_nickname());
+			if(record.getProduct_status()!=null)criteria.andProduct_statusEqualTo(record.getProduct_status());
 		}
 	}
 

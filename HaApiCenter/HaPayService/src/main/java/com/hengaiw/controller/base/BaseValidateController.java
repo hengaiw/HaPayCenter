@@ -59,7 +59,7 @@ public class BaseValidateController {
 		        		if(productList.size()>0) {
 		        			List<HaMerchantProduct> productArray=new ArrayList<HaMerchantProduct>();
 		        			for(HaMerchantProduct product:productList) {
-		        				if (product.getProduct_type().equals("ALIPAY")) {
+		        				if (product.getProduct_type().equals("ALIPAY")||product.getProduct_type().equals("WX")) {
 		        					int order_amount=paramObj.getIntValue("order_amount");
 		        					if(order_amount>0 && order_amount<=product.getMerchant_order_limit() && (order_amount+product.getMerchant_day_use()<=product.getMerchant_day_limit())) {
 		        						productArray.add(product);
@@ -73,6 +73,7 @@ public class BaseValidateController {
 		        				Map<String, Object> returnMap =new HashMap<String, Object>();
 		        				returnMap.put("merchantInfo",merchantInfo);
 		        				merchantProduct=productArray.get(0);
+		        				_log.info("{}商户的使用产品信息{}", logPrefix,JSON.toJSONString(merchantProduct));
 		        				returnMap.put("merchantProduct",merchantProduct);
 		        				HaAgentProduct agentProduct=new HaAgentProduct();
 		        				agentProduct.setAgent_id(merchantInfo.getAgent_id());
