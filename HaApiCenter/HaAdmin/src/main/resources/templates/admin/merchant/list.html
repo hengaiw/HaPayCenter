@@ -1,0 +1,89 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>高度最大适应 - 数据表格</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css"
+	media="all">
+<link rel="stylesheet" href="../../../layuiadmin/style/admin.css"
+	media="all">
+</head>
+<body>
+	<div class="layui-fluid">
+		<div class="layui-row layui-col-space15">
+			<div class="layui-col-md12">
+				<div class="layui-card">
+					<div class="layui-card-header">商户列表</div>
+					<form class="layui-form" action="" lay-filter="component-form-element">
+					<div class="layui-row layui-col-space10 layui-form-item">
+						<div class="layui-col-lg6">
+							<label class="layui-form-label">员工姓名：</label>
+							<div class="layui-input-block">
+								<input type="text" name="fullname" lay-verify="required"
+									placeholder="" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-col-lg6">
+							<label class="layui-form-label">技术工种：</label>
+							<div class="layui-input-block">
+								<select name="type" lay-verify="required" lay-filter="aihao">
+									<option value=""></option>
+									<option value="0">前端工程师</option>
+									<option value="1">Node.js工程师</option>
+									<option value="2">PHP工程师</option>
+									<option value="3">Java工程师</option>
+									<option value="4">运维</option>
+									<option value="4">视觉设计师</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					</form>
+					<div class="layui-card-body">
+						<table class="layui-hide" id="test-table-height"></table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="../../../layuiadmin/layui/layui.js"></script>
+	<script>
+  layui.config({
+    base: '../../../layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'table'], function(){
+    var admin = layui.admin
+    ,table = layui.table;
+  
+    table.render({
+      elem: '#test-table-height'
+      ,url: 'list_json.html'
+      ,height: 'full-120'
+      ,cellMinWidth: 60
+      ,page: true
+      ,limit: 30
+      ,cols: [[
+          {field:'merchant_no', title: '商户编号', sort: true}
+          ,{field:'merchant_name', title: '商户名称'}
+          ,{field:'merchant_nickname', title: '商户简称'} //width 支持：数字、百分比和不填写。你还可以通过 minWidth 参数局部定义当前单元格的最小宽度，layui 2.2.1 新增
+          ,{field:'merchant_address', title: '商户地址'}
+          ,{field:'merchant_user_name', title: '联系人姓名'}
+          ,{field:'merchant_user_phone', title: '联系人电话'}
+          ,{field:'merchant_email', title: '商户邮箱'} //单元格内容水平居中
+          ,{field:'merchant_status', title: '商户状态'} //单元格内容水平居中
+          
+      ]]
+    });
+    
+  });
+  </script>
+</body>
+</html>

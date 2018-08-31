@@ -79,8 +79,9 @@ public class WeixinPayController {
 			try {
 				wxPayUnifiedOrderResult = wxPayService.unifiedOrder(wxPayUnifiedOrderRequest);
 				_log.info("{} >>> 下单成功", logPrefix);
-				Map<String, Object> map = HaUtil.makeReturnMap(HaConstants.RETURN_VALUE_SUCCESS, "",
+				Map<String, Object> retMap = HaUtil.makeReturnMap(HaConstants.RETURN_VALUE_SUCCESS, "",
 						HaConstants.RETURN_VALUE_SUCCESS, null);
+				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("pay_order_sn", payOrderId);
 				map.put("prepayId", wxPayUnifiedOrderResult.getPrepayId());
 				payOrder.setOrder_status(HaConstants.PAY_STATUS_PAYING);
@@ -136,7 +137,8 @@ public class WeixinPayController {
 					break;
 				}
 				}
-				return HaUtil.makeRetData(map, merchantInfo.getMerchant_res_key());
+				retMap.put(HaConstants.RETURN_PARAM_RETURN_OBJ, map);
+				return HaUtil.makeRetData(retMap, merchantInfo.getMerchant_res_key());
 			} catch (WxPayException e) {
 				_log.error(e, "下单失败");
 				// 出现业务错误

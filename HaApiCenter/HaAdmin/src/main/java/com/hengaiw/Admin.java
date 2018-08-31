@@ -11,6 +11,7 @@ import org.springframework.context.annotation.PropertySource;
 @SpringBootApplication
 @PropertySource({ 
 		"file:./config/freemarker.properties",// 数据库配置
+		"file:./config/mchInfo.properties",// 数据库配置
 		"file:./config/admin_db.properties"// 数据库配置
 })
 @MapperScan(value = "com.hengaiw.pay.model.dao.mapper")

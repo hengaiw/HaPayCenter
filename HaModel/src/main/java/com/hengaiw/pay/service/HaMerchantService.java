@@ -44,4 +44,7 @@ public interface HaMerchantService {
     void setCriteria(Criteria criteria, HaMerchant record);
     
     List<HaMerchant> selectByExamplePage(int offset, int limit,HaMerchant record);
+    
+    
+    long countByRecord(HaMerchant record);
 }

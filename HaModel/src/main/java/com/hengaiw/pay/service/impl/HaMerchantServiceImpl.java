@@ -105,7 +105,7 @@ public class HaMerchantServiceImpl implements HaMerchantService{
 	public void setCriteria(Criteria criteria, HaMerchant record) {
 		// TODO Auto-generated method stub
 		if(record!=null) {
-			if(record.getMerchant_no()!="") criteria.andMerchant_noEqualTo(record.getMerchant_no());
+			if(record.getMerchant_no()!="" && record.getMerchant_no()!=null) criteria.andMerchant_noEqualTo(record.getMerchant_no());
 		}
 	}
 
@@ -137,6 +137,15 @@ public class HaMerchantServiceImpl implements HaMerchantService{
 			return null;
 		}
 		
+	}
+
+	@Override
+	public long countByRecord(HaMerchant record) {
+		// TODO Auto-generated method stub
+		HaMerchantExample example=new HaMerchantExample();
+		Criteria criteria=example.createCriteria();
+		setCriteria(criteria,record);
+		return haMerchantMapper.countByExample(example);
 	}
 
 }

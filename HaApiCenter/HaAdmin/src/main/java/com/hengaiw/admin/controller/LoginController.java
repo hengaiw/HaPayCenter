@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin")
 public class LoginController {
-	@RequestMapping("/login")
+	@RequestMapping("/login.html")
     public String indexTpl(ModelMap model) {
         return "admin/login";
     }
 	
-	@RequestMapping("/login/error")
+	@RequestMapping("/login/error.html")
     public String loginErrorTpl() {
         return "public/error";
     }

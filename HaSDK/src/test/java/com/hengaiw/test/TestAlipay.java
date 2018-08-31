@@ -63,7 +63,7 @@ public class TestAlipay {
 		String createOrderUrl="https://www.hengaikj.com/api/pay/order/create?";
 		JSONObject paramMap = new JSONObject();
 		paramMap.put("merchant_no", "844df47735689e50847ba6f89e6b78e8"); // 商户ID
-		paramMap.put("trade_type_nickname", "WX.NATIVE"); // 调用的产品简称
+		paramMap.put("trade_type_nickname", "WX.MWEB"); // 调用的产品简称
 		paramMap.put("merchant_order_no", "M10092200010"); // 商户订单号
 		paramMap.put("order_amount", 1000); // 支付金额
 		paramMap.put("order_clientIp", "192.168.1.34");//客户IP
