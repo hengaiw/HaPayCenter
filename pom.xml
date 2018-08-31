@@ -8,6 +8,5 @@
   	<module>HaPub</module>
   	<module>HaModel</module>
   	<module>HaApiCenter</module>
-  	<module>HaSDK</module>
   </modules>
 </project>
