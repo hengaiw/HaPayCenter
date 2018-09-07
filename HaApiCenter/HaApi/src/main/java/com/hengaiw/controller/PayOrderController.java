@@ -1,4 +1,4 @@
-package com.hengaiw.conrtroller;
+package com.hengaiw.controller;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
@@ -20,7 +20,7 @@ import com.hengaiw.serviceclient.WeixinPayServiceClient;
 
 @RestController
 @RequestMapping(value = "/pay/order")
-public class PayOrderContriller extends BaseController {
+public class PayOrderController extends BaseController {
 	@Autowired
 	private PayBaseServiceClient payBaseServiceClient;
 	@Autowired
